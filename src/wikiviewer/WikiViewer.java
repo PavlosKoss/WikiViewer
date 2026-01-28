@@ -16,9 +16,7 @@ import com.google.gson.JsonArray;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import java.io.IOException;
-
 import org.jsoup.Jsoup;
 
 
@@ -43,6 +41,7 @@ public class WikiViewer {
         }
 
     }
+    
     public static String setProperSnippet(String title){
         String snippet;
         String jsonResponse = CallURL(
@@ -57,6 +56,7 @@ public class WikiViewer {
         snippet = page.get("extract").getAsString();
         return snippet;
     }
+    
     public static String CallURL(String urlToCall){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
