@@ -18,7 +18,7 @@ import java.io.IOException;
  *
  * @author p.cosmides
  */
-public class GetResolts 
+public class GetResults 
 {
    
     

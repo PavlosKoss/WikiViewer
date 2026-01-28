@@ -18,7 +18,7 @@ public class WikiViewer
     {
         String search = "Ελλάδα";
         String urlToCall = "https://el.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + search + "&format=json";
-        GetResolts.getList(urlToCall);
+        GetResults.getList(urlToCall);
 
     }
     
