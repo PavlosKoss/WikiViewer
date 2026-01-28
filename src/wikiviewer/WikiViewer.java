@@ -6,7 +6,7 @@ package wikiviewer;
 
 /**
  *
- * @author Pavlos
+ * @author Pavlos Cosmides
  */
 
 
@@ -16,7 +16,7 @@ public class WikiViewer
 {
     public static void main(String[] args) 
     {
-        String search = "Ελλάδα";
+        String search = "ΕΑΠ";
         String urlToCall = "https://el.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + search + "&format=json";
         GetResults.getList(urlToCall);
 
