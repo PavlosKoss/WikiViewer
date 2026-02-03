@@ -19,6 +19,7 @@ public class WikiViewer
         String search = "ΕΑΠ";
         String urlToCall = "https://el.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + search + "&format=json";
         GetResults.getList(urlToCall);
+        dbHandling.buildDB();
 
     }
     

@@ -13,7 +13,7 @@ import java.sql.*;
  * @author p.cosmides
  */
 public class dbHandling {
-    private static final String url = "jdbc:DataBufferByte:wikidb;create=true";
+    private static final String url = "jdbc:derby:wikidb;create=true";
     
     
     
@@ -23,12 +23,13 @@ public class dbHandling {
         {
             if(conn != null)
             {
+                System.out.println("the db is allready exist");
                 createTables(conn);
             }
         }
         catch(SQLException e)
         {
-            
+            System.out.println(e);
         }
     }
     
@@ -40,7 +41,7 @@ public class dbHandling {
         
         
         String createTableArticle = "CREATE TABLE article (" +
-                "id INT PRIMARY KEY GENERATE ALWAYS AS IDENTITY, " +
+                "id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
                 "title VARCHAR(100), " +
                 "snippet CLOB, " +
                 "timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
@@ -48,7 +49,7 @@ public class dbHandling {
                 "category_id INT, " +
                 "CONSTRAINT fk_category " +
                     "FOREIGN KEY (category_id) " +
-                    "REFERENCES categories(cat_id))";
+                    "REFERENCES category(cat_id))";
         
         try (var stmt = conn.createStatement())
         {
@@ -58,11 +59,11 @@ public class dbHandling {
         {
             if (e.getSQLState().equals("X0Y32"))
             {
-                
+                System.out.println("the table allready exists");
             }
             else
             {
-                //παράθυρο με σφάλμα
+                System.out.println(e);
             }
         }
         
@@ -78,7 +79,7 @@ public class dbHandling {
             }
             else
             {
-                //παράθυρο με σφάλμα
+                System.out.println(e);
             }
         }
         
