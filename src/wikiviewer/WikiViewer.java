@@ -10,6 +10,8 @@ package wikiviewer;
  */
 
 
+import java.sql.SQLException;
+
 
 
 public class WikiViewer 
@@ -18,10 +20,19 @@ public class WikiViewer
     {
         String search = "ΕΑΠ";
         String urlToCall = "https://el.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + search + "&format=json";
-        GetResults.getList(urlToCall);
+        Article[] articles = GetResults.getList(urlToCall);
+        Category category = new Category(1, "Γενικά");
+        articles[3].setCategory(category);
         dbHandling.buildDB();
-
+        try {
+            
+            dbHandling.insertArticle(articles[3]);
+        } catch (SQLException e) {
+            System.out.println("problem with insert");
+        }
+        
     }
+
     
     
         

@@ -11,6 +11,28 @@ package wikiviewer;
 public class Category {
     private int catid;
     private String category;
+
+    public Category(int catid, String category) {
+        this.catid = catid;
+        this.category = category;
+    }
+
+    public Category(String category) {
+        this.category = category;
+    }
+
+    public int getCatid() {
+        return catid;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
     
     
 }

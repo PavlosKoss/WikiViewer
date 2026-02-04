@@ -6,6 +6,7 @@ package wikiviewer;
 
 
 import java.sql.*;
+import java.time.Instant;
 
 
 /**
@@ -25,6 +26,7 @@ public class dbHandling {
             {
                 System.out.println("the db is allready exist");
                 createTables(conn);
+                
             }
         }
         catch(SQLException e)
@@ -42,10 +44,10 @@ public class dbHandling {
         
         String createTableArticle = "CREATE TABLE article (" +
                 "id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
-                "title VARCHAR(100), " +
+                "title VARCHAR(255), " +
                 "snippet CLOB, " +
-                "timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
-                "stars INT, " +
+                "timestamp TIMESTAMP, " +
+                "stars INT CHECK (stars >=0 and stars <=5), " +
                 "category_id INT, " +
                 "CONSTRAINT fk_category " +
                     "FOREIGN KEY (category_id) " +
@@ -67,7 +69,7 @@ public class dbHandling {
             }
         }
         
-        try (var stmt = conn.createStatement())
+        try (Statement stmt = conn.createStatement())
         {
             stmt.execute(createTableCategory);
         }
@@ -84,6 +86,29 @@ public class dbHandling {
         }
         
         
+    }
+    
+    public static boolean insertArticle(Article article) throws SQLException
+    {
+        String sql = "INSERT INTO article (title, snippet, timestamp, stars,"
+                + "category_id) VALUES (?, ?, ?, ?, ?)";
+        
+        int affectedRows;
+        try (Connection conn = DriverManager.getConnection(url); PreparedStatement pstmt = conn.prepareStatement(sql))
+        {
+            pstmt.setString(1, article.getTitle());
+            pstmt.setString(2, article.getSnippet());
+            Instant instant = Instant.parse(article.getTimestamp());
+            pstmt.setTimestamp(3, Timestamp.from(instant));
+            pstmt.setInt(4, article.getStars());
+            pstmt.setInt(5, article.getCategory().getCatid());
+            affectedRows = pstmt.executeUpdate();
+            return (affectedRows > 0);           
+        } catch (SQLException e) 
+        {
+            System.out.println("in insert" + e);
+            return false;
+        }
     }
     
     

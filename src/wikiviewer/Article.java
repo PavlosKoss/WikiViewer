@@ -14,7 +14,7 @@ public class Article
     private String title;
     private String snippet;
     private String timestamp;
-    private String category;
+    private Category category;
     private int stars;
 
     public Article(String ns, String title, String pageid, String size, String wordcount, String snippet, String timestamp) 
@@ -24,7 +24,7 @@ public class Article
         this.timestamp = Jsoup.parse(timestamp).text();
     }
 
-    public Article(String title, String snippet, String timestamp, String category, int stars) {
+    public Article(String title, String snippet, String timestamp, Category category, int stars) {
         this.title = title;
         this.snippet = snippet;
         this.timestamp = timestamp;
@@ -32,7 +32,7 @@ public class Article
         this.stars = stars;
     }
 
-    public Article(int id, String title, String snippet, String timestamp, String category, int stars, int timesOfSearch) {
+    public Article(int id, String title, String snippet, String timestamp, Category category, int stars, int timesOfSearch) {
         this.id = id;
         this.title = title;
         this.snippet = snippet;
@@ -58,7 +58,7 @@ public class Article
         return timestamp;
     }
 
-    public String getCategory() 
+    public Category getCategory() 
     {
         return category;
     }
@@ -87,7 +87,7 @@ public class Article
         this.timestamp = Jsoup.parse(timestamp).text();
     }
 
-    public void setCategory(String category) 
+    public void setCategory(Category category) 
     {
         this.category = category;
     }
