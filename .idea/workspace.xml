@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73aab158-b360-48fb-9536-c80f6adccb0c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/db-forest-config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/derby.log" beforeDir="false" afterPath="$PROJECT_DIR$/derby.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/wikiviewer/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/wikiviewer/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/wikiviewer/WikiViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/WikiViewer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/ArticleView.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ArticleView.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/ArticleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ArticleView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MainGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MainGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/SearchWiki.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SearchWiki.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/SearchWiki.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SearchWiki.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/wikiviewer/dbHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/dbHandling.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/db.lck" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/db.lck" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/log/log.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/log/log.ctrl" afterDir="false" />
@@ -21,8 +21,6 @@
       <change beforePath="$PROJECT_DIR$/wikidb/seg0/c4b0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c4b0.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/seg0/c4c1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c4c1.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/seg0/c4d1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c4d1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c60.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c60.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c81.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c81.dat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +28,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="128" />
+    <option name="cachedIndexableFilesCount" value="167" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">

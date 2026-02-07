@@ -16,6 +16,7 @@ public class MainGui extends javax.swing.JFrame {
      */
     public MainGui() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     //άνοιγμα παραθύρου στο κέντρο
     private void openWindow(javax.swing.JFrame w) {
@@ -201,7 +202,7 @@ public class MainGui extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateArticleActionPerformed
 
     private void btnSavedArticlesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavedArticlesActionPerformed
-//       openWindow(new ArticleDetailsWindow());
+        openWindow(new SavedArticles());
     }//GEN-LAST:event_btnSavedArticlesActionPerformed
 
     private void btnStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatsActionPerformed

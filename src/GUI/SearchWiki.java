@@ -6,6 +6,7 @@ package GUI;
 import wikiviewer.*;
 
 import javax.swing.DefaultListModel;
+import wikiviewer.GetResults;
 
 /**
  *
@@ -37,8 +38,8 @@ public class SearchWiki extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonOpen = new javax.swing.JButton();
+        jButtonExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,17 +66,17 @@ public class SearchWiki extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jList2);
 
-        jButton2.setText("Άνοιγμα");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOpen.setText("Άνοιγμα");
+        jButtonOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonOpenActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Έξοδος");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonExit.setText("Έξοδος");
+        jButtonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonExitActionPerformed(evt);
             }
         });
 
@@ -93,9 +94,9 @@ public class SearchWiki extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(jButtonOpen)
                         .addGap(33, 33, 33)
-                        .addComponent(jButton3)))
+                        .addComponent(jButtonExit)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,8 +111,8 @@ public class SearchWiki extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonOpen)
+                    .addComponent(jButtonExit))
                 .addGap(0, 37, Short.MAX_VALUE))
         );
 
@@ -119,20 +120,20 @@ public class SearchWiki extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                DefaultListModel<Article> model = (DefaultListModel<Article>) jList2.getModel();
-                
-                Article[] articles = GetResults.getList(jTextField1.getText());
-                
-                model.clear();
-                for (Article a: articles)
-                {
-                    model.addElement(a);
-                }
+        DefaultListModel<Article> model = (DefaultListModel<Article>) jList2.getModel();
+
+        Article[] articles = GetResults.getList(jTextField1.getText());
+
+        model.clear();
+        for (Article a: articles)
+        {
+            model.addElement(a);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonExitActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         
@@ -142,14 +143,24 @@ public class SearchWiki extends javax.swing.JFrame {
         jButton1ActionPerformed(evt);
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenActionPerformed
         Article selectedArticle = (Article) jList2.getSelectedValue();
+        Article art = dbHandling.getArticleByTitle(selectedArticle.getTitle());
         if(selectedArticle != null)
         {
+            System.out.println(art.getTitle());
+            System.out.println(selectedArticle.getTitle());
             
-            openWindow(new ArticleView(selectedArticle));
+            if(art.getTitle()!= null)
+            {
+                openWindow(new ArticleView(art));               
+            }
+            else
+            {
+                openWindow(new ArticleView(selectedArticle));
+            }           
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonOpenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,8 +190,8 @@ public class SearchWiki extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonExit;
+    private javax.swing.JButton jButtonOpen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<Article> jList2;
     private javax.swing.JScrollPane jScrollPane1;

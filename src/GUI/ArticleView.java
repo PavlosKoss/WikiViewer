@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import wikiviewer.*;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 /**
  *
  * @author p.cosmides
@@ -18,7 +19,11 @@ public class ArticleView extends javax.swing.JFrame
 {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ArticleView.class.getName());
-
+    
+     public ArticleView() 
+    {
+        initComponents();
+    }
     /**
      * Creates new form ArticleView
      * @param article
@@ -30,7 +35,6 @@ public class ArticleView extends javax.swing.JFrame
         try {
             loadDataToCompo();
         } catch (SQLException e) {
-            System.out.println(e);
         }
         
         jTextAreaComments.setText(article.getComment());
@@ -132,8 +136,18 @@ public class ArticleView extends javax.swing.JFrame
 
         jButtonExit.setText("Έξοδος");
         jButtonExit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExitActionPerformed(evt);
+            }
+        });
 
         jButtonSave.setText("Αποθήκευση");
+        jButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -284,12 +298,8 @@ public class ArticleView extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -310,8 +320,8 @@ public class ArticleView extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,6 +338,52 @@ public class ArticleView extends javax.swing.JFrame
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButtonExitActionPerformed
+
+    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+        Category cat = new Category();
+        cat = (Category) jComboBox1.getSelectedItem();
+        int stars = 0;
+ 
+        if (jRadioButton1.isSelected())stars = 1;
+        else if (jRadioButton2.isSelected())stars = 2;
+        else if (jRadioButton3.isSelected())stars = 3;
+        else if (jRadioButton4.isSelected())stars = 4;
+        else if (jRadioButton5.isSelected())stars = 5;
+        else stars = 0;
+        
+        Article art = new Article(jTextFieldTitle.getText(), 
+                jTextAreaSnippet.getText(), 
+                jTextFieldTimestamp.getText(), 
+                jTextAreaComments.getText(),
+                cat,
+                stars);
+        Article a = dbHandling.getArticleByTitle(art.getTitle());
+            try {
+                if(a.getTitle() != null))
+                {
+                    if(dbHandling.updateArticle(art))
+                    {
+                        JOptionPane.showMessageDialog(this, "Η ενημέρωση έγινε με επιτυχία!");
+                    }else
+                    {
+                        JOptionPane.showMessageDialog(this, "Η ενημέρωση απέτυχε!");
+                    }
+                } else if(dbHandling.insertArticle(art))
+                    {
+                        JOptionPane.showMessageDialog(this, "Η αποθήκευση έγινε με επιτυχία!");
+                    }else
+                    {
+                        JOptionPane.showMessageDialog(this, "Η αποθήκευση απέτυχε!");
+                    }
+                } catch (Exception e) {
+                }
+        }
+ 
+    }//GEN-LAST:event_jButtonSaveActionPerformed
 
     /**
      * @param args the command line arguments

@@ -93,10 +93,10 @@ public class dbHandling {
         
     }
     
-    public static boolean insertArticle(Article article) throws SQLException
+    public static boolean insertArticle(Article article)
     {
-        String sql = "INSERT INTO article (title, snippet, timestamp, stars,"
-                + "category_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO article (title, snippet, timestamp, stars, "
+                + "category_id, comment) VALUES (?, ?, ?, ?, ?, ?)";
         
         int affectedRows;
         try (Connection conn = DriverManager.getConnection(url); PreparedStatement pstmt = conn.prepareStatement(sql))
@@ -107,16 +107,17 @@ public class dbHandling {
             pstmt.setTimestamp(3, Timestamp.valueOf(ldt));
             pstmt.setInt(4, article.getStars());
             pstmt.setInt(5, article.getCategory().getCatid());
+            pstmt.setString(6, article.getComment());
             affectedRows = pstmt.executeUpdate();
             return (affectedRows > 0);           
         } catch (SQLException e) 
         {
-            System.out.println("in insert" + e);
+            System.out.println(e);
             return false;
         }
     }
     
-    public static Article getArticleByTitle(String title) throws SQLException
+    public static Article getArticleByTitle(String title)
     {       
         Article article = new Article();
         Category category = new Category();
@@ -183,4 +184,102 @@ public class dbHandling {
     }
     
     
+    public static List<Article> getArticles() throws SQLException
+    {       
+        List<Article> articles = new ArrayList<>();
+        Category category = new Category();
+        String sql = "SELECT p.id, p.title, p.snippet, p.timestamp, "
+                + "p.stars, p.category_id, p.comment, c.cat_name "
+                + "FROM article p LEFT JOIN category c "
+                + "ON p.category_id = c.cat_id ";
+        try(Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery())
+        {
+
+            while (rs.next())
+            {
+                Article article = new Article();
+                article.setTitle(rs.getString("title"));
+                article.setTimestamp(rs.getTimestamp("timestamp").toInstant().toString());
+                article.setSnippet(rs.getString("snippet"));
+                article.setComment(rs.getString("comment"));
+                article.setStars(rs.getInt("stars"));
+                category.setCatid(rs.getInt("category_id"));
+                category.setCategory(rs.getString("cat_name"));
+                article.setCategory(category);
+                
+                articles.add(article);
+          
+            }
+            
+        } catch(SQLException e)
+        {
+            return null;
+        }
+        return articles;      
+    }
+    
+    public static List<Article> getArticles(Category category) throws SQLException
+    {       
+        List<Article> articles = new ArrayList<>();
+       
+        String sql = "SELECT p.id, p.title, p.snippet, p.timestamp, "
+                + "p.stars, p.category_id, p.comment, c.cat_name "
+                + "FROM article p LEFT JOIN category c "
+                + "ON p.category_id = c.cat_id "
+                + "WHERE p.category_id =" + category.getCatid();
+        try(Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery())
+        {
+
+            while (rs.next())
+            {
+                Article article = new Article();
+                article.setTitle(rs.getString("title"));
+                article.setTimestamp(rs.getTimestamp("timestamp").toInstant().toString());
+                article.setSnippet(rs.getString("snippet"));
+                article.setComment(rs.getString("comment"));
+                article.setStars(rs.getInt("stars"));
+                category.setCatid(rs.getInt("category_id"));
+                category.setCategory(rs.getString("cat_name"));
+                article.setCategory(category);
+                
+                articles.add(article);
+          
+            }
+        } catch(SQLException e)
+        {
+            return null;
+        }
+        return articles;
+    }   
+    public static boolean updateArticle(Article article) throws SQLException
+    {
+        String sql = "UPDATE article SET "
+                + "snippet = ?, "   // Διορθώθηκε το snippet
+                + "stars = ?, "
+                + "comment = ?, "
+                + "category_id = ? "
+                + "WHERE title = ?"; // Η Derby συνήθως δεν έχει πρόβλημα με τα κεφαλαία στα ονόματα στηλών, αλλά προτιμάμε τη συνέπεια
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt = conn.prepareStatement(sql))
+        {
+            pstmt.setString(1, article.getSnippet());
+            pstmt.setInt(2, article.getStars());
+            pstmt.setString(3, article.getComment());
+            pstmt.setInt(4, article.getCategory().getCatid()); 
+            pstmt.setString(5, article.getTitle());
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
+    }
 }
+ 
