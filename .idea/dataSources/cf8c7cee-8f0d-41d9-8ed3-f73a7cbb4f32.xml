@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="wikidb">
+  <database-model serializer="dbm" dbms="DERBY" family-id="DERBY" format-version="4.54">
+    <root id="1">
+      <ServerVersion>10.17.1.0</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="APP">
+      <LastIntrospectionLocalTimestamp>2026-02-05.16:51:08</LastIntrospectionLocalTimestamp>
+    </schema>
+    <schema id="3" parent="1" name="NULLID"/>
+    <schema id="4" parent="1" name="SQLJ"/>
+    <schema id="5" parent="1" name="SYS"/>
+    <schema id="6" parent="1" name="SYSCAT"/>
+    <schema id="7" parent="1" name="SYSCS_DIAG"/>
+    <schema id="8" parent="1" name="SYSCS_UTIL"/>
+    <schema id="9" parent="1" name="SYSFUN"/>
+    <schema id="10" parent="1" name="SYSIBM"/>
+    <schema id="11" parent="1" name="SYSPROC"/>
+    <schema id="12" parent="1" name="SYSSTAT"/>
+    <table id="13" parent="2" name="ARTICLE"/>
+    <table id="14" parent="2" name="CATEGORY"/>
+    <column id="15" parent="13" name="ID">
+      <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <SequenceIdentity>null</SequenceIdentity>
+      <StoredType>INTEGER|4s</StoredType>
+    </column>
+    <column id="16" parent="13" name="TITLE">
+      <Position>2</Position>
+      <StoredType>VARCHAR(100)|12s</StoredType>
+    </column>
+    <column id="17" parent="13" name="SNIPPET">
+      <Position>3</Position>
+      <StoredType>CLOB|2005s</StoredType>
+    </column>
+    <column id="18" parent="13" name="TIMESTAMP">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>4</Position>
+      <StoredType>TIMESTAMP|93s</StoredType>
+    </column>
+    <column id="19" parent="13" name="STARS">
+      <Position>5</Position>
+      <StoredType>INTEGER|4s</StoredType>
+    </column>
+    <column id="20" parent="13" name="CATEGORY_ID">
+      <Position>6</Position>
+      <StoredType>INTEGER|4s</StoredType>
+    </column>
+    <foreign-key id="21" parent="13" name="FK_CATEGORY">
+      <ColNames>CATEGORY_ID</ColNames>
+      <RefColNames>CAT_ID</RefColNames>
+      <RefTableName>CATEGORY</RefTableName>
+    </foreign-key>
+    <index id="22" parent="13" name="SQL0000000000-80220011-019c-234d-ecd4-00001e956658">
+      <ColNames>ID</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <index id="23" parent="13" name="SQL0000000001-a02ac013-019c-234d-ecd4-00001e956658">
+      <ColNames>CATEGORY_ID</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+    </index>
+    <key id="24" parent="13" name="SQL0000000000-80220011-019c-234d-ecd4-00001e956658">
+      <ColNames>ID</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="25" parent="14" name="CAT_ID">
+      <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <SequenceIdentity>null</SequenceIdentity>
+      <StoredType>INTEGER|4s</StoredType>
+    </column>
+    <column id="26" parent="14" name="CAT_NAME">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StoredType>VARCHAR(100)|12s</StoredType>
+    </column>
+    <index id="27" parent="14" name="SQL0000000081-df2180fd-019c-2336-e904-00001ebb0800">
+      <ColNames>CAT_ID</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="28" parent="14" name="SQL0000000081-df2180fd-019c-2336-e904-00001ebb0800">
+      <ColNames>CAT_ID</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

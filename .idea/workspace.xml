@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="73aab158-b360-48fb-9536-c80f6adccb0c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/db-forest-config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/derby.log" beforeDir="false" afterPath="$PROJECT_DIR$/derby.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/wikiviewer/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/wikiviewer/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/wikiviewer/WikiViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/WikiViewer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/wikiviewer/dbHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/dbHandling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/db.lck" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/db.lck" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/log/log.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/log/log.ctrl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/log/log1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/log/log1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/log/logmirror.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/log/logmirror.ctrl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c400.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c400.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c4b0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c4b0.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c4c1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c4c1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c4d1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c4d1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c60.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c60.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c81.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c81.dat" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="128" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="39G5zvhNFgDFsoloC23y15XzkmW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Pavlos&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;derby&quot;
+    ]
+  }
+}</component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="73aab158-b360-48fb-9536-c80f6adccb0c" name="Changes" comment="" />
+      <created>1770309837239</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1770309837239</updated>
+    </task>
+    <servers />
+  </component>
+</project>

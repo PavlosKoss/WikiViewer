@@ -6,7 +6,10 @@ package wikiviewer;
 
 
 import java.sql.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -15,7 +18,8 @@ import java.time.Instant;
  */
 public class dbHandling {
     private static final String url = "jdbc:derby:wikidb;create=true";
-    
+    private static final DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     
     
     public static void buildDB()
@@ -47,6 +51,7 @@ public class dbHandling {
                 "title VARCHAR(255), " +
                 "snippet CLOB, " +
                 "timestamp TIMESTAMP, " +
+                "comments VARCHAR(550), " +
                 "stars INT CHECK (stars >=0 and stars <=5), " +
                 "category_id INT, " +
                 "CONSTRAINT fk_category " +
@@ -98,8 +103,8 @@ public class dbHandling {
         {
             pstmt.setString(1, article.getTitle());
             pstmt.setString(2, article.getSnippet());
-            Instant instant = Instant.parse(article.getTimestamp());
-            pstmt.setTimestamp(3, Timestamp.from(instant));
+            LocalDateTime ldt = LocalDateTime.parse(article.getTimestamp(), formatter);
+            pstmt.setTimestamp(3, Timestamp.valueOf(ldt));
             pstmt.setInt(4, article.getStars());
             pstmt.setInt(5, article.getCategory().getCatid());
             affectedRows = pstmt.executeUpdate();
@@ -111,8 +116,71 @@ public class dbHandling {
         }
     }
     
+    public static Article getArticleByTitle(String title) throws SQLException
+    {       
+        Article article = new Article();
+        Category category = new Category();
+        String sql = "SELECT p.id, p.title, p.snippet, p.timestamp, "
+                + "p.stars, p.category_id, p.comment, c.cat_name "
+                + "FROM article p LEFT JOIN category c "
+                + "ON p.category_id = c.cat_id "
+                + "WHERE p.title = ?";
+        try(Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(sql) )
+        {
+            pstmt.setString(1, title);
+            try (ResultSet rs = pstmt.executeQuery())
+            {
+
+                if (rs.next())
+                {
+                    
+                    article.setTitle(rs.getString("title"));
+                    article.setTimestamp(rs.getTimestamp("timestamp").toInstant().toString());
+                    article.setSnippet(rs.getString("snippet"));
+                    article.setComment(rs.getString("comment"));
+                    article.setStars(rs.getInt("stars"));
+                    category.setCatid(rs.getInt("category_id"));
+                    category.setCategory(rs.getString("cat_name"));
+                    article.setCategory(category);
+                }
+                 
+            }               
+        } catch(SQLException e)
+        {
+            System.out.println(e);
+            return null;
+        }
+        return article;
+        
+        
+    }
     
     
+    public static List<Category> getAllCategory () throws SQLException
+    {
+        List<Category> categories = new ArrayList<>();
+        String sql = "SELECT cat_id, cat_name FROM category ORDER BY "
+                + "cat_name ASC";
+        try(Connection conn = DriverManager.getConnection(url);
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql))
+        {
+            while (rs.next())
+            {
+                Category cat = new Category();
+                cat.setCatid(rs.getInt("cat_id"));
+                cat.setCategory(rs.getString("cat_name"));
+                
+                categories.add(cat); 
+            }
+        } catch(SQLException e)
+        {
+            return null;
+        }
+        
+        return categories;
+    }
     
     
 }

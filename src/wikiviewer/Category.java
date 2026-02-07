@@ -12,6 +12,9 @@ public class Category {
     private int catid;
     private String category;
 
+    public Category() {
+    }
+    
     public Category(int catid, String category) {
         this.catid = catid;
         this.category = category;
@@ -31,6 +34,15 @@ public class Category {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public void setCatid(int catid) {
+        this.catid = catid;
+    }
+    
+    public String toString()
+    {
+        return String.format("%s", category);
     }
     
     

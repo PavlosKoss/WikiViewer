@@ -57,9 +57,9 @@ public class GetResults
         return null;
     }
     
-    public static Article[] getList(String urlToCall)
+    public static Article[] getList(String search)
     {
-        
+        String urlToCall = "https://el.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + search + "&format=json";
         String jsonResponse = CallURL(urlToCall);
         Gson gson = new Gson();
 
@@ -71,10 +71,6 @@ public class GetResults
             a.setSnippet(setProperSnippet(a.getTitle()));
             a.setTimestamp(a.getTimestamp());
 
-        }
-        for (Article a : articles)
-        {
-            System.out.println("\n" + a);
         }
         return articles;
     }
