@@ -27,7 +27,7 @@ public class GetResults
         String snippet;
         String jsonResponse = CallURL(
                 "https://el.wikipedia.org/w/api.php?format=json&action=query&"
-                        + "exchars=950&formatversion=2&prop=extracts&exintro&"
+                        + "exchars=2000&formatversion=2&prop=extracts&exintro&"
                         + "explaintext&titles=" + title);
         JsonObject obj = JsonParser.parseString(jsonResponse).getAsJsonObject();
         JsonArray pages = obj.getAsJsonObject("query").getAsJsonArray("pages");
