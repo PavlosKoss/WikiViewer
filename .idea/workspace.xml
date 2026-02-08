@@ -9,9 +9,9 @@
       <change beforePath="$PROJECT_DIR$/derby.log" beforeDir="false" afterPath="$PROJECT_DIR$/derby.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/ArticleView.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ArticleView.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/ArticleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ArticleView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/MainGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MainGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/SearchWiki.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SearchWiki.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/SearchWiki.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SearchWiki.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/SavedArticles.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SavedArticles.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/SavedArticles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SavedArticles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/wikiviewer/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/Category.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/wikiviewer/dbHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/dbHandling.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/db.lck" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/db.lck" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/log/log.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/log/log.ctrl" afterDir="false" />
@@ -28,7 +28,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="167" />
+    <option name="cachedIndexableFilesCount" value="166" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">

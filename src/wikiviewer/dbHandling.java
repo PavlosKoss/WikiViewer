@@ -158,7 +158,7 @@ public class dbHandling {
     }
     
     
-    public static List<Category> getAllCategory () throws SQLException
+    public static List<Category> getAllCategory ()
     {
         List<Category> categories = new ArrayList<>();
         String sql = "SELECT cat_id, cat_name FROM category ORDER BY "
@@ -187,7 +187,6 @@ public class dbHandling {
     public static List<Article> getArticles() throws SQLException
     {       
         List<Article> articles = new ArrayList<>();
-        Category category = new Category();
         String sql = "SELECT p.id, p.title, p.snippet, p.timestamp, "
                 + "p.stars, p.category_id, p.comment, c.cat_name "
                 + "FROM article p LEFT JOIN category c "
@@ -200,6 +199,7 @@ public class dbHandling {
             while (rs.next())
             {
                 Article article = new Article();
+                Category category = new Category();
                 article.setTitle(rs.getString("title"));
                 article.setTimestamp(rs.getTimestamp("timestamp").toInstant().toString());
                 article.setSnippet(rs.getString("snippet"));

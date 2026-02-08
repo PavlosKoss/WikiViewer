@@ -40,6 +40,18 @@ public class Category {
         this.catid = catid;
     }
     
+    // Σύγρηση με άλλο αντικείμενο Category 
+    // με βάση το catid και όχι τη θέση μνήμης
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Category other = (Category) obj;
+        // Συγκρίνουμε με βάση το ID (αν έχουν ίδιο ID, είναι η ίδια κατηγορία)
+        return this.catid == other.catid; 
+    }
+  
     public String toString()
     {
         return String.format("%s", category);
