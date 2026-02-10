@@ -336,6 +336,11 @@ public class ArticleView extends javax.swing.JFrame {
     
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         Category cat = (Category) jComboBoxCategory.getSelectedItem();
+        if (cat == null) 
+        {
+            JOptionPane.showMessageDialog(this, "Παρακαλώ επιλέξτε μια Κατηγορία!");
+            return;
+        }
         int stars;
         if (jRadioButton1.isSelected()) {
             stars = 1;
@@ -351,6 +356,8 @@ public class ArticleView extends javax.swing.JFrame {
             stars = 0;
         }
 
+        
+        
         Article art = new Article(jTextFieldTitle.getText(),
             jTextAreaSnippet.getText(),
             jTextFieldTimestamp.getText(),
