@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
 
 import java.awt.HeadlessException;
@@ -14,30 +10,40 @@ import wikiviewer.dbHandling;
 import wikiviewer.Article;
 
 /**
- *
- * @author Pavlos
+ * Η κλάση ArticleView παρέχει ένα γραφικό περιβάλλον για την προβολή και 
+ * επεξεργασία των στοιχείων ενός συγκεκριμένου άρθρου της Wikipedia.
+ * Επιτρέπει στον χρήστη να προσθέτει σχόλια, να βαθμολογεί το άρθρο (1-5 αστέρια)
+ * και να το ταξινομεί σε μια κατηγορία.
+ * @author PLH24Team Vasiliadou - Aggelopoulos - Kosmidis
  */
 public class ArticleView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ArticleView.class.getName());
+    private static final java.util.logging.Logger logger = 
+            java.util.logging.Logger.getLogger(ArticleView.class.getName());
 
     /**
-     * Creates new form ArticleView
-     * @param article
+     * Δημιουργεί μια νέα φόρμα ArticleView.
+     * Αρχικοποιεί τα συστατικά του GUI και γεμίζει τα πεδία με τα δεδομένα του άρθρου.
+     * *@param article Το αντικείμενο {@link Article} που πρόκειται να προβληθεί.
+     * 
      */
     public ArticleView(Article article) {
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null); // Κεντράρισμα του παραθύρου στην οθόνη
         try {
-            loadDataToCompo();
+            loadDataToCompo(); // Φόρτωση λίστας κατηγοριών από τη βάση
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(ArticleView.this, "!!!Πρόβλημα με τη "
+                    + "βάση δεδομένων!!!");
         }
-              
+        // Μεταφορά δεδομένων από το αντικείμενο Article στα πεδία της φόρμας      
         jTextAreaComment.setText(article.getComment());
         jTextAreaSnippet.setText(article.getSnippet());
         jComboBoxCategory.setSelectedItem(article.getCategory());
         jTextFieldTitle.setText(article.getTitle());
         jTextFieldTimestamp.setText(article.getTimestamp());
+        
+        // Επιλογή του σωστού Radio Button βάσει της βαθμολογίας
         switch (article.getStars()) {
             case 1 -> jRadioButton1.setSelected(true);
             case 2 -> jRadioButton2.setSelected(true);
@@ -334,13 +340,23 @@ public class ArticleView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
     
+    /**
+     * Διαχειρίζεται το πάτημα του κουμπιού "Αποθήκευση".
+     * Συλλέγει τα δεδομένα από τη φόρμα, δημιουργεί ένα αντικείμενο Article και 
+     * αποφασίζει αν θα κάνει Εισαγωγή (insert) ή Ενημέρωση (update) 
+     * στη βάση δεδομένων.
+     * @param evt Το συμβάν ενέργειας του κουμπιού.
+     */
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         Category cat = (Category) jComboBoxCategory.getSelectedItem();
+        // Έλεγχος αν έχει επιλεγεί κατηγορία (απαραίτητο για το Foreign Key στη βάση)
         if (cat == null) 
         {
             JOptionPane.showMessageDialog(this, "Παρακαλώ επιλέξτε μια Κατηγορία!");
             return;
         }
+        
+        // Προσδιορισμός βαθμολογίας από το ButtonGroup
         int stars;
         if (jRadioButton1.isSelected()) {
             stars = 1;
@@ -356,38 +372,52 @@ public class ArticleView extends javax.swing.JFrame {
             stars = 0;
         }
 
-        
-        
+        // Δημιουργία προσωρινού αντικειμένου Article με τα νέα δεδομένα
         Article art = new Article(jTextFieldTitle.getText(),
             jTextAreaSnippet.getText(),
             jTextFieldTimestamp.getText(),
             jTextAreaComment.getText(),
             cat,
             stars);
-
+        
+        // Έλεγχος αν το άρθρο υπάρχει ήδη στη βάση (βάσει τίτλου)
         Article a = dbHandling.getArticleByTitle(art.getTitle());
 
         try {
             if (a.getTitle() != null) {
+                // Αν υπάρχει, εκτελείται UPDATE
                 if (dbHandling.updateArticle(art)) {
-                    JOptionPane.showMessageDialog(this, "Η ενημέρωση έγινε με επιτυχία!");
+                    JOptionPane.showMessageDialog(this, "Η ενημέρωση έγινε με "
+                            + "επιτυχία!");
                 } else {
                     JOptionPane.showMessageDialog(this, "Η ενημέρωση απέτυχε!");
                 }
+            // Αν δεν υπάρχει, εκτελείται INSERT
             }else if (dbHandling.insertArticle(art)) {
-                JOptionPane.showMessageDialog(this, "Η αποθήκευση έγινε με επιτυχία!");
+                JOptionPane.showMessageDialog(this, "Η αποθήκευση έγινε με "
+                        + "επιτυχία!");
             } else {
                 JOptionPane.showMessageDialog(this, "Η αποθήκευση απέτυχε!");
             }
         } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(ArticleView.this, "!!!Πρόβλημα με τη "
+                    + "βάση δεδομένων!!!");
         }
 
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
+    /**
+     * Κλείνει το παράθυρο προβολής άρθρου.
+     * @param evt Το συμβάν ενέργειας.
+     */
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonExitActionPerformed
 
+    /**
+     * Φορτώνει όλες τις διαθέσιμες κατηγορίες από τη βάση δεδομένων στο ComboBox της φόρμας.
+     * @throws SQLException Σε περίπτωση σφάλματος κατά την ανάκτηση από τη βάση.
+     */
     private void loadDataToCompo() throws SQLException {
         List<Category> cat = dbHandling.getAllCategory();
         DefaultComboBoxModel<Category> model = (DefaultComboBoxModel<Category>) jComboBoxCategory.getModel();
@@ -396,11 +426,7 @@ public class ArticleView extends javax.swing.JFrame {
         for (Category a : cat) {
             model.addElement(a);
         }
-    }  
-    
-    /**
-     * @param args the command line arguments
-     */
+    }   
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
