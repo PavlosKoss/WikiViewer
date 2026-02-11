@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package wikiviewer;
 
 /**
@@ -11,32 +7,24 @@ package wikiviewer;
 
 
 import GUI.MainGui;
-import java.sql.SQLException;
 import javax.swing.JFrame;
 
 
-
+/**
+ * Η κλάση WikiViewer αποτελεί την κεντρική κλάση εκκίνησης της εφαρμογής.
+ * Περιέχει τη μέθοδο {@code main}, η οποία είναι υπεύθυνη για τη δημιουργία 
+ * και την εμφάνιση του κύριου γραφικού περιβάλλοντος (MainGui).
+ * @author PLH24Team Vasiliadou - Aggelopoulos - Kosmidis
+ */
 public class WikiViewer 
 {
     public static void main(String[] args) 
     {
-//        String search = "ΕΑΠ";
-//        String urlToCall = "https://el.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + search + "&format=json";
-//        Article[] articles = GetResults.getList(urlToCall);
-//        Category category = new Category(1, "Γενικά");
-//        articles[3].setCategory(category);
-//        dbHandling.buildDB();
-//        try {
-//            
-////            dbHandling.insertArticle(articles[3]);
-//            System.out.println(dbHandling.getArticleByTitle("ΕΑΠ"));
-//            
-//        } catch (SQLException e) {
-//            System.out.println("problem with insert");
-//        }
-//   
-          JFrame a = new MainGui();
-          a.setVisible(true);
+        // Δημιουργία του κεντρικού παραθύρου της εφαρμογής  
+        JFrame a = new MainGui();
+        
+        // Εμφάνιση του παραθύρου στην οθόνη
+        a.setVisible(true);
     }
 
     
