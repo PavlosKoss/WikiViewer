@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package wikiviewer;
 
 
@@ -10,13 +6,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 /**
  * Η κλάση dbHandling διαχειρίζεται όλες τις λειτουργίες της βάσης δεδομένων (Apache Derby).
  * Περιλαμβάνει μεθόδους για τη δημιουργία πινάκων, την εισαγωγή, ενημέρωση και 
  * ανάκτηση άρθρων, κατηγοριών και στατιστικών στοιχείων.
- * * @author PLH24Team Vasiliadou - Aggelopoulos - Kosmidis
+ * @author PLH24Team Vasiliadou - Aggelopoulos - Kosmidis
  */
 public class dbHandling {
     /** Η διεύθυνση σύνδεσης (JDBC URL) για τη βάση δεδομένων Derby. */
@@ -28,6 +25,7 @@ public class dbHandling {
     
     /**
     * Αρχικοποιεί τη σύνδεση με τη βάση δεδομένων και καλεί τη δημιουργία των πινάκων.
+     *
     */
     public static void buildDB()
     {
@@ -40,7 +38,8 @@ public class dbHandling {
         }
         catch(SQLException e)
         {
-            //Opt
+            JOptionPane.showMessageDialog(null, "!!! Πρόβλημα με τo"
+                    + " άνοιγμα της βάσης δεδομένων !!!");
         }
     }
     
@@ -85,7 +84,8 @@ public class dbHandling {
             }
             else
             {
-                //
+                JOptionPane.showMessageDialog(null, "!!! Πρόβλημα με τη "
+                    + "Δημιουργία του πίνακα Άρθρων !!!");
             }
         }
         
@@ -101,7 +101,8 @@ public class dbHandling {
             }
             else
             {
-                //
+                JOptionPane.showMessageDialog(null, "!!! Πρόβλημα με τη "
+                    + "Δημιουργία του πίνακα Κατηγορίων !!!");
             }
         }
         
@@ -119,7 +120,8 @@ public class dbHandling {
             }
             else
             {
-                //
+                JOptionPane.showMessageDialog(null, "!!! Πρόβλημα με τη "
+                    + "Δημιουργία του πίνακα Keywords !!!");
             }
         }
         
@@ -231,7 +233,7 @@ public class dbHandling {
     /**
      * Ανακτά όλα τα αποθηκευμένα άρθρα από τη βάση δεδομένων, πραγματοποιώντας 
      * σύνδεση (LEFT JOIN) με τον πίνακα των κατηγοριών.
-     * * @return Μια λίστα {@link List} από αντικείμενα {@link Article}. 
+     * @return Μια λίστα {@link List} από αντικείμενα {@link Article}. 
      * Επιστρέφει null σε περίπτωση σφάλματος SQL.
      * @throws SQLException Εάν προκύψει σφάλμα κατά την επικοινωνία με τη βάση.
      */
@@ -274,7 +276,8 @@ public class dbHandling {
     /**
      * Ανακτά μια λίστα άρθρων που ανήκουν σε μια συγκεκριμένη κατηγορία.
      * Χρησιμοποιεί το ID της κατηγορίας για το φιλτράρισμα των αποτελεσμάτων.
-     * * @param category Το αντικείμενο {@link Category} βάσει του οποίου θα γίνει το φιλτράρισμα.
+     * @param category Το αντικείμενο {@link Category} βάσει του οποίου θα γίνει
+     * το φιλτράρισμα.
      * @return Μια λίστα {@link List} με τα άρθρα της συγκεκριμένης κατηγορίας. 
      * Επιστρέφει null σε περίπτωση σφάλματος SQL.
      * @throws SQLException Εάν προκύψει σφάλμα κατά την εκτέλεση του ερωτήματος.
@@ -324,11 +327,11 @@ public class dbHandling {
     public static boolean updateArticle(Article article) throws SQLException
     {
         String sql = "UPDATE article SET "
-                + "snippet = ?, "   // Διορθώθηκε το snippet
+                + "snippet = ?, "  
                 + "stars = ?, "
                 + "comment = ?, "
                 + "category_id = ? "
-                + "WHERE title = ?"; // Η Derby συνήθως δεν έχει πρόβλημα με τα κεφαλαία στα ονόματα στηλών, αλλά προτιμάμε τη συνέπεια
+                + "WHERE title = ?";
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sql))
@@ -375,6 +378,7 @@ public class dbHandling {
             }
 
         } catch (SQLException e) {
+            return null;
         }
 
         return statsList;
