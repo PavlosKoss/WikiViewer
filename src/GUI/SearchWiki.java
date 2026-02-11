@@ -1,26 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
 import wikiviewer.*;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import wikiviewer.GetResults;
+import wikiviewer.dbHandling;
 
 /**
- *
- * @author p.cosmides
+ * Η κλάση SearchWiki αποτελεί το κεντρικό παράθυρο αναζήτησης της εφαρμογής.
+ * Παρέχει μια διεπαφή χρήστη (GUI) που επιτρέπει την αναζήτηση άρθρων στη 
+ * Wikipedia, την προβολή των αποτελεσμάτων σε λίστα και την αποθήκευση των 
+ * λέξεων-κλειδιών στη βάση.
+ * @author PLH24Team Vasiliadou - Aggelopoulos - Kosmidis
  */
 public class SearchWiki extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SearchWiki.class.getName());
+    private static final java.util.logging.Logger logger = 
+            java.util.logging.Logger.getLogger(SearchWiki.class.getName());
 
     /**
-     * Creates new form SearchWiki
+     * Κατασκευαστής της κλάσης. 
+     * Αρχικοποιεί τα συστατικά του GUI και ορίζει το μοντέλο δεδομένων 
+     * για τη λίστα αποτελεσμάτων.
      */
     public SearchWiki() {
         initComponents();
+        // Ορισμός κενού μοντέλου στη jList2 για τη δυναμική προσθήκη 
+        //αντικειμένων Article
         jList2.setModel(new DefaultListModel<>());
     }
 
@@ -40,12 +46,18 @@ public class SearchWiki extends javax.swing.JFrame {
         jList2 = new javax.swing.JList<>();
         jButtonOpen = new javax.swing.JButton();
         jButtonExit = new javax.swing.JButton();
+        jButtonSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Search Wiki");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/WikiViewerLabel.png"))); // NOI18N
 
-        jTextField1.setText("Κείμενο για αναζήτηση");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -64,6 +76,11 @@ public class SearchWiki extends javax.swing.JFrame {
             }
         });
 
+        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList2MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList2);
 
         jButtonOpen.setText("Άνοιγμα");
@@ -77,6 +94,13 @@ public class SearchWiki extends javax.swing.JFrame {
         jButtonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExitActionPerformed(evt);
+            }
+        });
+
+        jButtonSave.setText("Αποθήκευση");
+        jButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveActionPerformed(evt);
             }
         });
 
@@ -94,6 +118,8 @@ public class SearchWiki extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonSave)
+                        .addGap(35, 35, 35)
                         .addComponent(jButtonOpen)
                         .addGap(33, 33, 33)
                         .addComponent(jButtonExit)))
@@ -112,16 +138,24 @@ public class SearchWiki extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOpen)
-                    .addComponent(jButtonExit))
+                    .addComponent(jButtonExit)
+                    .addComponent(jButtonSave))
                 .addGap(0, 37, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+ 
+    /**
+     * Διαχειρίζεται το πάτημα του κουμπιού "Αναζήτηση".
+     * Ανακτά τα άρθρα μέσω του {@link GetResults#getList}, ενημερώνει 
+     * τη λίστα στο GUI και αποθηκεύει τη λέξη-κλειδί στη βάση δεδομένων.
+     * @param evt Το συμβάν ενέργειας (action event).
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DefaultListModel<Article> model = (DefaultListModel<Article>) jList2.getModel();
-
+        DefaultListModel<Article> model = 
+                (DefaultListModel<Article>) jList2.getModel();
+        // Κλήση του API για τη λήψη αποτελεσμάτων
         Article[] articles = GetResults.getList(jTextField1.getText());
 
         model.clear();
@@ -129,8 +163,14 @@ public class SearchWiki extends javax.swing.JFrame {
         {
             model.addElement(a);
         }
+        // Καταγραφή της αναζήτησης στη βάση δεδομένων
+        dbHandling.insertKeyword(jTextField1.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Κλείνει το τρέχον παράθυρο αναζήτησης.
+     * @param evt Το συμβάν ενέργειας.
+     */
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonExitActionPerformed
@@ -139,65 +179,102 @@ public class SearchWiki extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTextField1KeyTyped
 
+    /**
+    * Επιτρέπει την εκτέλεση αναζήτησης με το πάτημα του "Enter" 
+    * μέσα στο πεδίο κειμένου.
+    * @param evt Το συμβάν ενέργειας.
+    */  
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         jButton1ActionPerformed(evt);
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    /**
+     * Διαχειρίζεται το πάτημα του κουμπιού "Άνοιγμα".
+     * Λαμβάνει το επιλεγμένο άρθρο από τη λίστα και ανοίγει το 
+     * παράθυρο λεπτομερειών.
+     * Ελέγχει αν το άρθρο υπάρχει ήδη στη βάση δεδομένων για να φορτώσει 
+     * τυχόν αποθηκευμένα σχόλια/βαθμολογία.
+     * @param evt Το συμβάν ενέργειας.
+     */
     private void jButtonOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenActionPerformed
         Article selectedArticle = (Article) jList2.getSelectedValue();
+        // Έλεγχος αν το άρθρο είναι ήδη αποθηκευμένο στη βάση
         Article art = dbHandling.getArticleByTitle(selectedArticle.getTitle());
         if(selectedArticle != null)
-        {
-            System.out.println(art.getTitle());
-            System.out.println(selectedArticle.getTitle());
-            
+        {            
             if(art.getTitle()!= null)
             {
+                // Αν υπάρχει στη βάση, ανοίγουμε το παράθυρο με τα 
+                //δεδομένα της βάσης
                 openWindow(new ArticleView(art));               
             }
             else
             {
+                // Αν δεν υπάρχει, ανοίγουμε το παράθυρο με τα δεδομένα από το API
                 openWindow(new ArticleView(selectedArticle));
             }           
         }
     }//GEN-LAST:event_jButtonOpenActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Μεταφέρει τον κέρσορα κατα το άνοιγμα του παραθύρου στο Search
+     * @param evt Το άνοιγμα του παραθύρου.
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        jTextField1.requestFocusInWindow();
+    }//GEN-LAST:event_formWindowOpened
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new SearchWiki().setVisible(true));
-    }
+    /**
+     * Επιτρέπει το άνοιγμα ενός άρθρου με διπλό κλικ πάνω στη λίστα.
+     * @param evt Το συμβάν ποντικιού.
+     */
+    private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
+        if (evt.getClickCount() == 2) {
+            jButtonOpen.doClick();
+        }
+    }//GEN-LAST:event_jList2MouseClicked
     
+     /**
+     * Διαχειρίζεται το πάτημα του κουμπιού "Αποθήκευση".
+     * Δημιουργεί ένα αντικείμενο Article και κάνει Εισαγωγή 
+     * (insert) στη βάση δεδομένων.
+     * @param evt Το συμβάν ενέργειας του κουμπιού.
+     */
+    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+        
+        // Αν υπάρχει επιλεγμένο, Insert
+        if (jList2.getSelectedIndex() != -1) 
+        {
+            Article art = jList2.getSelectedValue();
+            art.setCategory(dbHandling.getAllCategory().getFirst());
+            
+            if (dbHandling.insertArticle(art)) {
+                JOptionPane.showMessageDialog(this, "Η αποθήκευση έγινε "
+                        + "με επιτυχία!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Η αποθήκευση απέτυχε!");
+            }
+
+        }
+        
+    }//GEN-LAST:event_jButtonSaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonExit;
     private javax.swing.JButton jButtonOpen;
+    private javax.swing.JButton jButtonSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<Article> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-
+    
+    /**
+    * Βοηθητική μέθοδος για το άνοιγμα ενός νέου παραθύρου.
+    * Τοποθετεί το νέο παράθυρο στο κέντρο σε σχέση με το παρόν.
+    * @param w Το αντικείμενο JFrame που πρόκειται να εμφανιστεί.
+    */
     private void openWindow(javax.swing.JFrame w) 
     {
         w.setLocationRelativeTo(this);

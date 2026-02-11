@@ -1,24 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
+
+
+import wikiviewer.dbHandling;
+
 /**
- *
- * @author DELL5580
+ * Η κλάση MainGui είναι το κεντρικό παράθυρο της εφαρμογής WikiViewer.
+ * Λειτουργεί ως πίνακας ελέγχου (Dashboard) από όπου ο χρήστης μπορεί να έχει πρόσβαση
+ * στην αναζήτηση, στα αποθηκευμένα άρθρα και στα στατιστικά στοιχεία.
+ * @author PLH24Team Vasiliadou - Aggelopoulos - Kosmidis
  */
 public class MainGui extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainGui.class.getName());
 
     /**
-     * Creates new form MainGui
+     * Κατασκευαστής της κλάσης MainGui.
+     * Αρχικοποιεί τα συστατικά της φόρμας, κεντράρει το παράθυρο και 
+     * εκκινεί τη διαδικασία ελέγχου/δημιουργίας της βάσης δεδομένων μέσω της {@link dbHandling#buildDB()}.
      */
     public MainGui() {
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Τοποθέτηση στο κέντρο της οθόνης
+        
+        // Αρχικοποίηση της βάσης δεδομένων κατά την εκκίνηση
+        dbHandling.buildDB(); 
     }
-    //άνοιγμα παραθύρου στο κέντρο
+    
+    /**
+     * Βοηθητική μέθοδος για το άνοιγμα ενός νέου παραθύρου.
+     * Ρυθμίζει το νέο παράθυρο να εμφανίζεται στο κέντρο σε σχέση με το κύριο μενού.
+     * @param w Το αντικείμενο JFrame (παράθυρο) που πρόκειται να προβληθεί.
+     */
     private void openWindow(javax.swing.JFrame w) {
         w.setLocationRelativeTo(this);
         w.setVisible(true);
@@ -193,26 +205,54 @@ public class MainGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Διαχειρίζεται το πάτημα του κουμπιού "Αναζήτηση άρθρου".
+     * Ανοίγει το παράθυρο {@link SearchWiki}.
+     * @param evt Το συμβάν ενέργειας.
+     */
     private void btnSearchApiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchApiActionPerformed
         openWindow(new SearchWiki());
     }//GEN-LAST:event_btnSearchApiActionPerformed
-
+    
+    /**
+     * Διαχειρίζεται το πάτημα του κουμπιού "Ενημέρωση Άρθρου".
+     * @param evt Το συμβάν ενέργειας.
+     */
     private void btnUpdateArticleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateArticleActionPerformed
-//       openWindow(new ArticleDetailsWindow());
+    // Μελλοντική υλοποίηση
     }//GEN-LAST:event_btnUpdateArticleActionPerformed
 
+    /**
+     * Διαχειρίζεται το πάτημα του κουμπιού "Αποθηκευμένα Άρθρα".
+     * Ανοίγει το παράθυρο {@link SavedArticles}.
+     * @param evt Το συμβάν ενέργειας.
+     */
     private void btnSavedArticlesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavedArticlesActionPerformed
         openWindow(new SavedArticles());
     }//GEN-LAST:event_btnSavedArticlesActionPerformed
 
+    /**
+     * Διαχειρίζεται το πάτημα του κουμπιού "Προβολή Στατιστικών".
+     * Ανοίγει το παράθυρο {@link Statistics}.
+     * @param evt Το συμβάν ενέργειας.
+     */
     private void btnStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatsActionPerformed
-//        openWindow(new StatsWindow());
+        openWindow(new Statistics());
     }//GEN-LAST:event_btnStatsActionPerformed
 
+    /**
+     * Διαχειρίζεται το πάτημα του κουμπιού "Προσθήκη Κατηγορίας".
+     * @param evt Το συμβάν ενέργειας.
+     */
     private void btnAddCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCategoryActionPerformed
-//        openWindow(new AddCategoryWindow());
+    // Μελλοντική υλοποίηση
     }//GEN-LAST:event_btnAddCategoryActionPerformed
 
+    /**
+     * Διαχειρίζεται την έξοδο από την εφαρμογή.
+     * Εμφανίζει ένα παράθυρο επιβεβαίωσης στον χρήστη πριν τον τερματισμό.
+     * @param evt Το συμβάν ενέργειας.
+     */
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
        int ans = javax.swing.JOptionPane.showConfirmDialog(
         this,
@@ -221,35 +261,9 @@ public class MainGui extends javax.swing.JFrame {
         javax.swing.JOptionPane.YES_NO_OPTION
     );
     if (ans == javax.swing.JOptionPane.YES_OPTION) {
-        dispose(); // κλείνει το παράθυρο
-        // System.exit(0); // αν θες να τερματίζει πάντα όλη την εφαρμογή
+        System.exit(0); 
     }
     }//GEN-LAST:event_btnExitActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MainGui().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCategory;

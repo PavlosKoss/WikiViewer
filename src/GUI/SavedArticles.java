@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
 
 import java.sql.SQLException;
@@ -14,15 +10,21 @@ import wikiviewer.Category;
 import wikiviewer.dbHandling;
 
 /**
- *
- * @author Pavlos
+ * Η κλάση SavedArticles αναπαριστά το παράθυρο διαχείρισης των αποθηκευμένων 
+ * λημμάτων.
+ * Επιτρέπει στον χρήστη να δει όλα τα αποθηκευμένα άρθρα, να τα φιλτράρει ανά 
+ * κατηγορία και να τα ανοίξει για προβολή ή επεξεργασία.
+ * @author PLH24Team Vasiliadou - Aggelopoulos - Kosmidis
  */
 public class SavedArticles extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SavedArticles.class.getName());
+    private static final java.util.logging.Logger logger = 
+            java.util.logging.Logger.getLogger(SavedArticles.class.getName());
 
     /**
-     * Creates new form SavesArticles
+     * Κατασκευαστής της κλάσης. 
+     * Αρχικοποιεί τα συστατικά, ορίζει το μοντέλο της λίστας και φορτώνει 
+     * τα αρχικά δεδομένα από τη βάση δεδομένων στο ComboBox και στη Λίστα.
      */
     public SavedArticles() {
         initComponents();
@@ -57,15 +59,16 @@ public class SavedArticles extends javax.swing.JFrame {
         jComboBoxCategory = new javax.swing.JComboBox<>();
         jButtonCategory = new javax.swing.JButton();
         jButtonAll = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jLabelList = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButtonExit = new javax.swing.JButton();
         jButtonOpen = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabelList = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Αποθηκευμένα Αρχεία");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/WikiViewerLabel.png"))); // NOI18N
@@ -74,12 +77,11 @@ public class SavedArticles extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 806, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(142, 142, 142)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(255, Short.MAX_VALUE)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,38 +110,6 @@ public class SavedArticles extends javax.swing.JFrame {
             }
         });
 
-        jList1.setToolTipText("");
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jList1);
-
-        jLabelList.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabelList.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelList.setText("Όλα");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelList, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -147,30 +117,23 @@ public class SavedArticles extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonCategory, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                    .addComponent(jButtonAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(jButtonCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(66, 66, 66)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBoxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
-                        .addComponent(jButtonAll, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jComboBoxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jButtonAll, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         jButtonExit.setText("Έξοδος");
@@ -192,10 +155,11 @@ public class SavedArticles extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(908, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,35 +171,74 @@ public class SavedArticles extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabelList.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelList.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelList.setText("Όλα");
+
+        jList1.setToolTipText("");
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
+            .addComponent(jLabelList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelList, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(170, 170, 170)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(170, 170, 170)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Φιλτράρει τη λίστα άρθρων με βάση την κατηγορία που έχει επιλεγεί 
+     * στο ComboBox.
+     * @param evt Το συμβάν ενέργειας του κουμπιού.
+     */
     private void jButtonCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoryActionPerformed
         Category category = (Category) jComboBoxCategory.getSelectedItem();
         try {
@@ -245,6 +248,11 @@ public class SavedArticles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonCategoryActionPerformed
 
+    /**
+     * Επαναφέρει τη λίστα στην αρχική της κατάσταση, προβάλλοντας όλα τα 
+     * αποθηκευμένα άρθρα.
+     * @param evt Το συμβάν ενέργειας του κουμπιού.
+     */
     private void jButtonAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAllActionPerformed
         try {
             loadDataToList();
@@ -253,48 +261,125 @@ public class SavedArticles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAllActionPerformed
 
+    /**
+     * Ανοίγει το επιλεγμένο άρθρο σε νέο παράθυρο {@link ArticleView}.
+     * @param evt Το συμβάν ενέργειας του κουμπιού.
+     */
     private void jButtonOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenActionPerformed
-        Article selectedArticle = (Article) jList1.getSelectedValue();
-        openWindow(new ArticleView(selectedArticle));
-        
+      openWindow();
     }//GEN-LAST:event_jButtonOpenActionPerformed
 
+    /**
+     * Κλείνει το παράθυρο των αποθηκευμένων άρθρων.
+     * @param evt Το συμβάν ενέργειας του κουμπιού.
+     */
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonExitActionPerformed
 
+    /**
+     * Επιτρέπει το άνοιγμα ενός άρθρου με διπλό κλικ πάνω στη λίστα.
+     * @param evt Το συμβάν ποντικιού.
+     */
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if (evt.getClickCount() == 2) {
+            openWindow();           
+        }
+    }//GEN-LAST:event_jList1MouseClicked
+    
+    
+    /**
+     * Φορτώνει όλες τις διαθέσιμες κατηγορίες από τη βάση δεδομένων 
+     * στο JComboBox.
+     * @throws SQLException Σε περίπτωση αποτυχίας ανάκτησης δεδομένων.
+     */
+    private void loadDataToCompo() throws SQLException
+    {
+        List<Category> cat = dbHandling.getAllCategory();
+        DefaultComboBoxModel<Category> model = 
+                (DefaultComboBoxModel<Category>) jComboBoxCategory.getModel();
         
-        
-            Article selectedArticle = (Article) jList1.getSelectedValue();
+        model.removeAllElements(); // Καθαρισμός παλιών
+        for (Category a : cat) 
+        {
+            model.addElement(a);
+        }
+    }
+    
+    /**
+     * Φορτώνει όλα τα αποθηκευμένα άρθρα από τη βάση δεδομένων στο JList.
+     * @throws SQLException Σε περίπτωση αποτυχίας ανάκτησης δεδομένων.
+     */
+    private void loadDataToList() throws SQLException
+    {
+        DefaultListModel<Article> model = 
+                (DefaultListModel<Article>) jList1.getModel();
+        List<Article> articles = new ArrayList<>(dbHandling.getArticles());
+        model.clear();
+        for (Article a: articles)
+        {
+            model.addElement(a);
+        }
+    }
+    
+    /**
+     * Φορτώνει τα άρθρα μιας συγκεκριμένης κατηγορίας στο JList.
+     * @param category Η κατηγορία φιλτραρίσματος.
+     * @throws SQLException Σε περίπτωση αποτυχίας ανάκτησης δεδομένων.
+     */
+    private void loadDataToList(Category category) throws SQLException
+    {
+        DefaultListModel<Article> model = 
+                (DefaultListModel<Article>) jList1.getModel();
+        List<Article> articles = new ArrayList<>(dbHandling.getArticles(category));
+        model.clear();
+        for (Article a: articles)
+        {
+            model.addElement(a);
+        }
+    }
+    
+    /**
+     * Ανοίγει το παράθυρο {@link ArticleView} για το άρθρο που είναι επιλεγμένο 
+     * στη λίστα.
+     * Προσθέτει έναν WindowListener ώστε, όταν κλείσει το παράθυρο προβολής, 
+     * η λίστα των αποθηκευμένων άρθρων να ανανεώνεται αυτόματα.
+     */
+     private void openWindow() 
+    {
+        Article selectedArticle = (Article) jList1.getSelectedValue();
 
             
-            if (selectedArticle != null) {
-                // 4. Ανοίγουμε το παράθυρο
+            if (selectedArticle != null) 
+            {
+                // Ανοίγει το παράθυρο
                 ArticleView view = new ArticleView(selectedArticle);
-                view.addWindowListener(new java.awt.event.WindowAdapter() {
+                /* Προσθήκη listener για ανανέωση της λίστας μετά την 
+                 * επεξεργασία/κλείσιμο
+                 */
+                view.addWindowListener(new java.awt.event.WindowAdapter() 
+                {
                     @Override
                     public void windowClosed(java.awt.event.WindowEvent windowEvent) 
                     {
                         try {
                             if (jLabelList.getText().equals("Όλα"))
                             {
-                                loadDataToList(); // Ανανέωση της λίστα
+                                // Ανανέωση της λίστα
+                                loadDataToList(); 
                             }else{
-                                jButtonCategory.doClick();
+                                // Προσομοίωση κλικ για ανανέωση
+                                jButtonCategory.doClick(); 
                             }
                             
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } catch (SQLException e) 
+                        {
                         }
                     }
                 });
                 view.setVisible(true);
             }
-        }
-    }//GEN-LAST:event_jList1MouseClicked
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAll;
@@ -312,45 +397,4 @@ public class SavedArticles extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
-    private void loadDataToCompo() throws SQLException
-    {
-        List<Category> cat = dbHandling.getAllCategory();
-        DefaultComboBoxModel<Category> model = (DefaultComboBoxModel<Category>) jComboBoxCategory.getModel();
-        
-        model.removeAllElements(); // Καθαρισμός παλιών
-        for (Category a : cat) 
-        {
-            model.addElement(a);
-        }
-    }
-    
-    private void loadDataToList() throws SQLException
-    {
-        DefaultListModel<Article> model = (DefaultListModel<Article>) jList1.getModel();
-        List<Article> articles = new ArrayList<>(dbHandling.getArticles());
-        model.clear();
-        for (Article a: articles)
-        {
-            model.addElement(a);
-        }
-    }
-    
-    private void loadDataToList(Category category) throws SQLException
-    {
-        DefaultListModel<Article> model = (DefaultListModel<Article>) jList1.getModel();
-        List<Article> articles = new ArrayList<>(dbHandling.getArticles(category));
-        model.clear();
-        for (Article a: articles)
-        {
-            model.addElement(a);
-        }
-    }
-    
-     private void openWindow(javax.swing.JFrame w) 
-    {
-        w.setLocationRelativeTo(this);
-        w.setVisible(true);
-    }
-
 }
