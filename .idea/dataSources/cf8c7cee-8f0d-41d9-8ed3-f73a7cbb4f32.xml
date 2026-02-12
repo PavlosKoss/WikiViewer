@@ -5,7 +5,7 @@
       <ServerVersion>10.17.1.0</ServerVersion>
     </root>
     <schema id="2" parent="1" name="APP">
-      <LastIntrospectionLocalTimestamp>2026-02-05.16:51:08</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2026-02-09.20:37:22</LastIntrospectionLocalTimestamp>
     </schema>
     <schema id="3" parent="1" name="NULLID"/>
     <schema id="4" parent="1" name="SQLJ"/>
@@ -19,72 +19,98 @@
     <schema id="12" parent="1" name="SYSSTAT"/>
     <table id="13" parent="2" name="ARTICLE"/>
     <table id="14" parent="2" name="CATEGORY"/>
-    <column id="15" parent="13" name="ID">
+    <table id="15" parent="2" name="KEYWORDS"/>
+    <column id="16" parent="13" name="ID">
       <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
       <StoredType>INTEGER|4s</StoredType>
     </column>
-    <column id="16" parent="13" name="TITLE">
+    <column id="17" parent="13" name="TITLE">
       <Position>2</Position>
       <StoredType>VARCHAR(100)|12s</StoredType>
     </column>
-    <column id="17" parent="13" name="SNIPPET">
+    <column id="18" parent="13" name="SNIPPET">
       <Position>3</Position>
       <StoredType>CLOB|2005s</StoredType>
     </column>
-    <column id="18" parent="13" name="TIMESTAMP">
+    <column id="19" parent="13" name="TIMESTAMP">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>4</Position>
       <StoredType>TIMESTAMP|93s</StoredType>
     </column>
-    <column id="19" parent="13" name="STARS">
+    <column id="20" parent="13" name="STARS">
       <Position>5</Position>
       <StoredType>INTEGER|4s</StoredType>
     </column>
-    <column id="20" parent="13" name="CATEGORY_ID">
+    <column id="21" parent="13" name="CATEGORY_ID">
       <Position>6</Position>
       <StoredType>INTEGER|4s</StoredType>
     </column>
-    <foreign-key id="21" parent="13" name="FK_CATEGORY">
+    <column id="22" parent="13" name="COMMENT">
+      <Position>7</Position>
+      <StoredType>VARCHAR(550)|12s</StoredType>
+    </column>
+    <foreign-key id="23" parent="13" name="FK_CATEGORY">
       <ColNames>CATEGORY_ID</ColNames>
       <RefColNames>CAT_ID</RefColNames>
       <RefTableName>CATEGORY</RefTableName>
     </foreign-key>
-    <index id="22" parent="13" name="SQL0000000000-80220011-019c-234d-ecd4-00001e956658">
+    <index id="24" parent="13" name="SQL0000000000-80220011-019c-234d-ecd4-00001e956658">
       <ColNames>ID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <index id="23" parent="13" name="SQL0000000001-a02ac013-019c-234d-ecd4-00001e956658">
+    <index id="25" parent="13" name="SQL0000000001-a02ac013-019c-234d-ecd4-00001e956658">
       <ColNames>CATEGORY_ID</ColNames>
       <NameSurrogate>1</NameSurrogate>
     </index>
-    <key id="24" parent="13" name="SQL0000000000-80220011-019c-234d-ecd4-00001e956658">
+    <key id="26" parent="13" name="SQL0000000000-80220011-019c-234d-ecd4-00001e956658">
       <ColNames>ID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="25" parent="14" name="CAT_ID">
+    <column id="27" parent="14" name="CAT_ID">
       <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
       <StoredType>INTEGER|4s</StoredType>
     </column>
-    <column id="26" parent="14" name="CAT_NAME">
+    <column id="28" parent="14" name="CAT_NAME">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>VARCHAR(100)|12s</StoredType>
     </column>
-    <index id="27" parent="14" name="SQL0000000081-df2180fd-019c-2336-e904-00001ebb0800">
+    <index id="29" parent="14" name="SQL0000000081-df2180fd-019c-2336-e904-00001ebb0800">
       <ColNames>CAT_ID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="28" parent="14" name="SQL0000000081-df2180fd-019c-2336-e904-00001ebb0800">
+    <key id="30" parent="14" name="SQL0000000081-df2180fd-019c-2336-e904-00001ebb0800">
       <ColNames>CAT_ID</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="31" parent="15" name="KEY_ID">
+      <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <SequenceIdentity>null</SequenceIdentity>
+      <StoredType>INTEGER|4s</StoredType>
+    </column>
+    <column id="32" parent="15" name="KEYWORDS">
+      <Position>2</Position>
+      <StoredType>VARCHAR(255)|12s</StoredType>
+    </column>
+    <index id="33" parent="15" name="SQL0000000004-286cc01e-019c-441e-2eeb-00000dcf6bf0">
+      <ColNames>KEY_ID</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="34" parent="15" name="SQL0000000004-286cc01e-019c-441e-2eeb-00000dcf6bf0">
+      <ColNames>KEY_ID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>

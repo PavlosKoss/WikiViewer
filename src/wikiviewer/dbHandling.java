@@ -18,6 +18,18 @@ import javax.swing.JOptionPane;
 public class dbHandling {
     /** Η διεύθυνση σύνδεσης (JDBC URL) για τη βάση δεδομένων Derby. */
     private static final String url = "jdbc:derby:wikidb;create=true";
+    private static final String[] categories = {
+            "Άλλο", 
+            "Επιστήμη", 
+            "Ιστορία", 
+            "Τέχνες", 
+            "Αθλητισμός", 
+            "Υγεία", 
+            "Γεωγραφία", 
+            "Πολιτική",
+            "Οικονομία",
+            "Τεχνολογία"
+        };
 
     /** Formatter για τη μετατροπή των χρονικών σημάνσεων από String σε αντικείμενα LocalDateTime. */
     private static final DateTimeFormatter formatter =
@@ -60,7 +72,7 @@ public class dbHandling {
                 "title VARCHAR(255), " +
                 "snippet CLOB, " +
                 "timestamp TIMESTAMP, " +
-                "comments VARCHAR(550), " +
+                "comment VARCHAR(550), " +
                 "stars INT CHECK (stars >=0 and stars <=5), " +
                 "category_id INT, " +
                 "CONSTRAINT fk_category " +
@@ -73,6 +85,25 @@ public class dbHandling {
                 + "keywords VARCHAR(255))";
         
         // Εκτέλεση εντολών δημιουργίας με έλεγχο αν οι πίνακες υπάρχουν ήδη (SQL State X0Y32)
+        try (Statement stmt = conn.createStatement())
+        {
+            stmt.execute(createTableCategory);
+            insertCategories(categories);
+            
+        }
+        catch (SQLException e)
+        {
+            if (e.getSQLState().equals("X0Y32"))
+            {
+                //Do Nothing
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "!!! Πρόβλημα με τη "
+                    + "Δημιουργία του πίνακα Κατηγορίων !!!");
+            }
+        }
+        
         try (Statement stmt = conn.createStatement())
         {
             stmt.execute(createTableArticle);
@@ -88,26 +119,7 @@ public class dbHandling {
                     + "Δημιουργία του πίνακα Άρθρων !!!");
             }
         }
-        
-        try (Statement stmt = conn.createStatement())
-        {
-            stmt.execute(createTableCategory);
-        }
-        catch (SQLException e)
-        {
-            if (e.getSQLState().equals("X0Y32"))
-            {
-                //Do Nothing
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "!!! Πρόβλημα με τη "
-                    + "Δημιουργία του πίνακα Κατηγορίων !!!");
-            }
-        }
-        
-        
-        
+               
         try (Statement stmt = conn.createStatement())
         {
             stmt.execute(createTableKeywords);
@@ -127,6 +139,50 @@ public class dbHandling {
         
         
         
+    }
+    /**
+    * Εισάγει κατηγορίες στον πίνακα category αν δεν υπάρχουν
+     * @param categories
+    */
+    public static void insertCategories(String[] categories) {
+        // 1. Η λίστα με τις κατηγορίες που θέλουμε να βάλουμε
+        
+
+        String checkSql = "SELECT COUNT(*) FROM category WHERE cat_name = ?";
+        String insertSql = "INSERT INTO category (cat_name) VALUES (?)";
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+
+            // Για κάθε κατηγορία στη λίστα μας...
+            for (String catName : categories) {
+
+                // Ελεγχος υπάρχει ήδη (για να μην έχουμε διπλότυπα)
+                try (PreparedStatement checkPs = conn.prepareStatement(checkSql)) 
+                {
+                    checkPs.setString(1, catName);
+                    ResultSet rs = checkPs.executeQuery();
+                    rs.next();
+                    int count = rs.getInt(1);
+
+                    if (count > 0) 
+                    {
+                        JOptionPane.showMessageDialog(null, "!!! Η κατηγορία "
+                                + "\"" + catName + "\" υπάρχει ήδη.\" !!!");
+                        continue; // Πάμε στην επόμενη
+                    }
+                }
+
+                // Αν δεν υπάρχει, INSERT
+                try (PreparedStatement insertPs = conn.prepareStatement(insertSql)) {
+                    insertPs.setString(1, catName);
+                    insertPs.executeUpdate();
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "!!! \"Πρόβλημα με την εγγραφή της "
+                                + "κατηγορίας στη βάση !!!");
+        }
     }
     
     /**
@@ -153,6 +209,7 @@ public class dbHandling {
             return (affectedRows > 0);           
         } catch (SQLException e) 
         {
+            System.out.println(e);
             return false;
         }
     }
@@ -194,7 +251,6 @@ public class dbHandling {
             }               
         } catch(SQLException e)
         {
-            return null;
         }
         return article;
         
@@ -224,7 +280,6 @@ public class dbHandling {
             }
         } catch(SQLException e)
         {
-            return null;
         }
         
         return categories;
@@ -268,7 +323,6 @@ public class dbHandling {
             
         } catch(SQLException e)
         {
-            return null;
         }
         return articles;      
     }
@@ -313,7 +367,6 @@ public class dbHandling {
             }
         } catch(SQLException e)
         {
-            return null;
         }
         return articles;
     }   
@@ -378,7 +431,6 @@ public class dbHandling {
             }
 
         } catch (SQLException e) {
-            return null;
         }
 
         return statsList;
@@ -437,6 +489,59 @@ public class dbHandling {
             //Option
             return false;
         }
+    }
+    
+    public static List<Article> searchArticles(String keyword) {
+        List<Article> results = new ArrayList<>();
+
+        // SQL: Ψάξε όπου ο τίτλος ΜΟΙΑΖΕΙ με τη λέξη Ή το snippet ΜΟΙΑΖΕΙ με τη λέξη
+        // Χρησιμοποιούμε LOWER() για να μην έχει σημασία αν είναι κεφαλαία ή μικρά
+        String sql = "SELECT p.title, p.snippet, p.timestamp, "
+                + "p.stars, p.category_id, p.comment, c.cat_name "
+                + "FROM article p LEFT JOIN category c "
+                + "ON p.category_id = c.cat_id "
+                + "WHERE LOWER(p.title) LIKE ? OR LOWER(p.snippet) LIKE ? "
+                + "OR LOWER(p.comment) LIKE ?"
+                + "ORDER BY p.title DESC";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement ps = conn.prepareStatement(sql)) 
+        {
+
+            // Φτιάχνουμε το pattern αναζήτησης: %λέξη%
+            String searchPattern = "%" + keyword.toLowerCase() + "%";
+
+            // Βάζουμε την ίδια λέξη και στις τρεις θέσεις (1 = Title, 2 = Snippet, 
+            // 3 = Comments)
+            ps.setString(1, searchPattern);
+            ps.setString(2, searchPattern);
+            ps.setString(3, searchPattern);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) 
+            {
+                // Εδώ πρέπει να φτιάξεις το αντικείμενο Article όπως το έχεις ορίσει
+                // Προσοχή: Πρέπει να διαβάσεις όλα τα πεδία από τη βάση
+                Article article = new Article();
+                Category category = new Category();
+                article.setTitle(rs.getString("title"));
+                article.setTimestamp(rs.getTimestamp("timestamp").toInstant().toString());
+                article.setSnippet(rs.getString("snippet"));
+                article.setComment(rs.getString("comment"));
+                article.setStars(rs.getInt("stars"));
+                category.setCatid(rs.getInt("category_id"));
+                category.setCategory(rs.getString("cat_name"));
+                article.setCategory(category);
+
+
+                results.add(article);
+            }
+
+        } catch (SQLException e) {
+        }
+    
+        return results;
     }
 }
  

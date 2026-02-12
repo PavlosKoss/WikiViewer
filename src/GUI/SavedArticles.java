@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import wikiviewer.Article;
 import wikiviewer.Category;
 import wikiviewer.dbHandling;
@@ -36,10 +37,15 @@ public class SavedArticles extends javax.swing.JFrame {
         try {
             loadDataToCompo();
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "!!! Πρόβλημα με τη"
+                    + "βάση δεδομένων !!!");
         }
         try {
-            loadDataToList();
+            List<Article> articles = dbHandling.getArticles();
+            loadDataToList(articles);
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "!!! Πρόβλημα με τη"
+                    + "βάση δεδομένων !!!");
         }
     }
 
@@ -59,6 +65,8 @@ public class SavedArticles extends javax.swing.JFrame {
         jComboBoxCategory = new javax.swing.JComboBox<>();
         jButtonCategory = new javax.swing.JButton();
         jButtonAll = new javax.swing.JButton();
+        jButtonSearch = new javax.swing.JButton();
+        jTextFieldSearch = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButtonExit = new javax.swing.JButton();
         jButtonOpen = new javax.swing.JButton();
@@ -110,6 +118,13 @@ public class SavedArticles extends javax.swing.JFrame {
             }
         });
 
+        jButtonSearch.setText("Αναζήτηση");
+        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -120,7 +135,9 @@ public class SavedArticles extends javax.swing.JFrame {
                     .addComponent(jComboBoxCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldSearch)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,9 +148,13 @@ public class SavedArticles extends javax.swing.JFrame {
                 .addComponent(jComboBoxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonAll, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         jButtonExit.setText("Έξοδος");
@@ -240,11 +261,15 @@ public class SavedArticles extends javax.swing.JFrame {
      * @param evt Το συμβάν ενέργειας του κουμπιού.
      */
     private void jButtonCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoryActionPerformed
-        Category category = (Category) jComboBoxCategory.getSelectedItem();
+        
         try {
-            loadDataToList(category);
+            Category category = (Category) jComboBoxCategory.getSelectedItem();
+            List<Article> articles = dbHandling.getArticles(category);
+            loadDataToList(articles);
             jLabelList.setText(category.toString());
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "!!! Πρόβλημα με τη"
+                    + "βάση δεδομένων !!!");
         }
     }//GEN-LAST:event_jButtonCategoryActionPerformed
 
@@ -254,10 +279,15 @@ public class SavedArticles extends javax.swing.JFrame {
      * @param evt Το συμβάν ενέργειας του κουμπιού.
      */
     private void jButtonAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAllActionPerformed
-        try {
-            loadDataToList();
+        try 
+        {
+            List<Article> articles = dbHandling.getArticles();
+            loadDataToList(articles);
             jLabelList.setText("Όλα");
-        } catch (SQLException e) {
+        } catch (SQLException e) 
+        {
+            JOptionPane.showMessageDialog(this, "!!! Πρόβλημα με τη"
+                    + "βάση δεδομένων !!!");
         }
     }//GEN-LAST:event_jButtonAllActionPerformed
 
@@ -286,6 +316,23 @@ public class SavedArticles extends javax.swing.JFrame {
             openWindow();           
         }
     }//GEN-LAST:event_jList1MouseClicked
+
+    /**
+     * Επαναφέρει τη λίστα στην αρχική της κατάσταση, προβάλλοντας όλα τα 
+     *  άρθρα που περιέχουν το keyword.
+     * @param evt Το συμβάν ενέργειας του κουμπιού.
+     */
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+        try 
+        {
+            List<Article> articles = 
+                    dbHandling.searchArticles(jTextFieldSearch.getText());
+            loadDataToList(articles);
+            jLabelList.setText("Αναζήτηση keyword :" + jTextFieldSearch.getText() );
+        } catch (SQLException e) 
+        {
+        }       
+    }//GEN-LAST:event_jButtonSearchActionPerformed
     
     
     /**
@@ -307,31 +354,15 @@ public class SavedArticles extends javax.swing.JFrame {
     }
     
     /**
-     * Φορτώνει όλα τα αποθηκευμένα άρθρα από τη βάση δεδομένων στο JList.
+     * Φορτώνει τη λίστα με τα άρθρα στο JList.
+     * @param articles
      * @throws SQLException Σε περίπτωση αποτυχίας ανάκτησης δεδομένων.
      */
-    private void loadDataToList() throws SQLException
+    private void loadDataToList(List<Article> articles) throws SQLException
     {
         DefaultListModel<Article> model = 
                 (DefaultListModel<Article>) jList1.getModel();
-        List<Article> articles = new ArrayList<>(dbHandling.getArticles());
-        model.clear();
-        for (Article a: articles)
-        {
-            model.addElement(a);
-        }
-    }
-    
-    /**
-     * Φορτώνει τα άρθρα μιας συγκεκριμένης κατηγορίας στο JList.
-     * @param category Η κατηγορία φιλτραρίσματος.
-     * @throws SQLException Σε περίπτωση αποτυχίας ανάκτησης δεδομένων.
-     */
-    private void loadDataToList(Category category) throws SQLException
-    {
-        DefaultListModel<Article> model = 
-                (DefaultListModel<Article>) jList1.getModel();
-        List<Article> articles = new ArrayList<>(dbHandling.getArticles(category));
+        
         model.clear();
         for (Article a: articles)
         {
@@ -347,38 +378,7 @@ public class SavedArticles extends javax.swing.JFrame {
      */
      private void openWindow() 
     {
-        Article selectedArticle = (Article) jList1.getSelectedValue();
-
-            
-            if (selectedArticle != null) 
-            {
-                // Ανοίγει το παράθυρο
-                ArticleView view = new ArticleView(selectedArticle);
-                /* Προσθήκη listener για ανανέωση της λίστας μετά την 
-                 * επεξεργασία/κλείσιμο
-                 */
-                view.addWindowListener(new java.awt.event.WindowAdapter() 
-                {
-                    @Override
-                    public void windowClosed(java.awt.event.WindowEvent windowEvent) 
-                    {
-                        try {
-                            if (jLabelList.getText().equals("Όλα"))
-                            {
-                                // Ανανέωση της λίστα
-                                loadDataToList(); 
-                            }else{
-                                // Προσομοίωση κλικ για ανανέωση
-                                jButtonCategory.doClick(); 
-                            }
-                            
-                        } catch (SQLException e) 
-                        {
-                        }
-                    }
-                });
-                view.setVisible(true);
-            }
+        Article selectedArticle = (Article) jList1.getSelectedValue();            
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -386,6 +386,7 @@ public class SavedArticles extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCategory;
     private javax.swing.JButton jButtonExit;
     private javax.swing.JButton jButtonOpen;
+    private javax.swing.JButton jButtonSearch;
     private javax.swing.JComboBox<Category> jComboBoxCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -396,5 +397,6 @@ public class SavedArticles extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
 }
