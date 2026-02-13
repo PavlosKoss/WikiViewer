@@ -1,4 +1,4 @@
-package wikiviewer;
+package model;
 
 /**
  *

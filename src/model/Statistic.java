@@ -1,4 +1,4 @@
-package wikiviewer;
+package model;
 
 /**
  * Η διεπαφή Statistic ορίζει τη βασική δομή για την αναπαράσταση στατιστικών δεδομένων.

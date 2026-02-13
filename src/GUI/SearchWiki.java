@@ -1,10 +1,10 @@
 package GUI;
-import wikiviewer.*;
+import model.Article;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import wikiviewer.GetResults;
-import wikiviewer.dbHandling;
+import api.GetResults;
+import db.dbHandling;
 
 /**
  * Η κλάση SearchWiki αποτελεί το κεντρικό παράθυρο αναζήτησης της εφαρμογής.

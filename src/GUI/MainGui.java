@@ -1,7 +1,7 @@
 package GUI;
 
 
-import wikiviewer.dbHandling;
+import db.dbHandling;
 
 /**
  * Η κλάση MainGui είναι το κεντρικό παράθυρο της εφαρμογής WikiViewer.

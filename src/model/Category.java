@@ -1,4 +1,4 @@
-package wikiviewer;
+package model;
 
 /**
  * Η κλάση Category αναπαριστά μια θεματική κατηγορία (π.χ. "Επιστήμη", "Τέχνη") 

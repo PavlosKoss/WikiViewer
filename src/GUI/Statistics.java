@@ -8,7 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import wikiviewer.dbHandling;
+import db.dbHandling;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
@@ -31,7 +31,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import javax.swing.JDialog;
 import java.awt.Color;
 import java.awt.Graphics;
-import wikiviewer.Statistic;
+import model.Statistic;
 
 /**
  * Η κλάση Stristics αποτελεί το παράθυρο εμφάνισης στατιστικών της εφαρμογής.

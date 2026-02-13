@@ -1,4 +1,4 @@
-package wikiviewer;
+package model;
 
 /**
  * Η κλάση KeywordStat υλοποιεί τη διεπαφή {@link Statistic} και αναπαριστά 

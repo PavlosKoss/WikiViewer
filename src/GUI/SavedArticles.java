@@ -6,9 +6,9 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import wikiviewer.Article;
-import wikiviewer.Category;
-import wikiviewer.dbHandling;
+import model.Article;
+import model.Category;
+import db.dbHandling;
 
 /**
  * Η κλάση SavedArticles αναπαριστά το παράθυρο διαχείρισης των αποθηκευμένων 
@@ -378,7 +378,31 @@ public class SavedArticles extends javax.swing.JFrame {
      */
      private void openWindow() 
     {
-        Article selectedArticle = (Article) jList1.getSelectedValue();            
+        Article selectedArticle = (Article) jList1.getSelectedValue();
+        
+        if (selectedArticle != null)
+        {
+            ArticleView view = new ArticleView(selectedArticle);
+            
+            // Προσθήκη listener για ανανέωση της λίστας μετά την επεξεργασία/κλείσιμο
+            view.addWindowListener(new java.awt.event.WindowAdapter() 
+            {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) 
+                {
+                    
+                    if (jLabelList.getText().equals("Όλα"))
+                    {
+                        jButtonAll.doClick();
+                    } else {
+                        jButtonCategory.doClick(); // Προσομοίωση κλικ για ανανέωση φίλτρου
+                    }
+                    
+                }
+            });
+            view.setVisible(true);
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

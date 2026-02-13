@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import wikiviewer.Category;
-import wikiviewer.dbHandling;
-import wikiviewer.Article;
+import model.Category;
+import db.dbHandling;
+import model.Article;
 
 /**
  * Η κλάση ArticleView παρέχει ένα γραφικό περιβάλλον για την προβολή και 

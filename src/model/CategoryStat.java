@@ -1,4 +1,4 @@
-package wikiviewer;
+package model;
 
 /**
  * Η κλάση CategoryStat υλοποιεί τη διεπαφή {@link Statistic} και χρησιμοποιείται

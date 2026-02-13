@@ -1,4 +1,4 @@
-package wikiviewer;
+package model;
 
 import org.jsoup.Jsoup;
 import java.time.format.DateTimeFormatter;
