@@ -28,7 +28,6 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
-import javax.swing.JDialog;
 import java.awt.Color;
 import java.awt.Graphics;
 import model.Statistic;

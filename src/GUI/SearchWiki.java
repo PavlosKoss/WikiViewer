@@ -248,12 +248,19 @@ public class SearchWiki extends javax.swing.JFrame {
             Article art = jList2.getSelectedValue();
             art.setCategory(dbHandling.getAllCategory().getFirst());
             
-            if (dbHandling.insertArticle(art)) {
-                JOptionPane.showMessageDialog(this, "Η αποθήκευση έγινε "
-                        + "με επιτυχία!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Η αποθήκευση απέτυχε!");
+            if (dbHandling.getArticleByTitle(art.getTitle()).getTitle()== null)
+            {
+                if (dbHandling.insertArticle(art)) {
+                    JOptionPane.showMessageDialog(this, "Η αποθήκευση έγινε "
+                            + "με επιτυχία!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Η αποθήκευση απέτυχε!");
+                }
+            }else
+            {
+                JOptionPane.showMessageDialog(this, "Το άρθρο έχει ήδη αποθηκευτεί.");
             }
+            
 
         }
         

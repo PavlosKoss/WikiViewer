@@ -18,6 +18,7 @@ import model.Article;
  */
 public class ArticleView extends javax.swing.JFrame {
     
+    Article article = new Article();
     private static final java.util.logging.Logger logger = 
             java.util.logging.Logger.getLogger(ArticleView.class.getName());
 
@@ -28,6 +29,7 @@ public class ArticleView extends javax.swing.JFrame {
      * 
      */
     public ArticleView(Article article) {
+        this.article = article;
         initComponents();
         this.setLocationRelativeTo(null); // Κεντράρισμα του παραθύρου στην οθόνη
         try {
@@ -357,6 +359,70 @@ public class ArticleView extends javax.swing.JFrame {
         }
         
         // Προσδιορισμός βαθμολογίας από το ButtonGroup
+        Article art = ViewToArticle();
+        
+        // Έλεγχος αν το άρθρο υπάρχει ήδη στη βάση (βάσει τίτλου)
+        Article a = dbHandling.getArticleByTitle(art.getTitle());
+
+        try {
+            if (a.getTitle() != null) {
+                // Αν υπάρχει, εκτελείται UPDATE
+                if (dbHandling.updateArticle(art)) {
+                    JOptionPane.showMessageDialog(this, "Η ενημέρωση έγινε με "
+                            + "επιτυχία!");
+                    article = ViewToArticle();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Η ενημέρωση απέτυχε!");
+                }
+            // Αν δεν υπάρχει, εκτελείται INSERT
+            }else if (dbHandling.insertArticle(art)) {
+                JOptionPane.showMessageDialog(this, "Η αποθήκευση έγινε με "
+                        + "επιτυχία!");
+                article = ViewToArticle();
+            } else {
+                JOptionPane.showMessageDialog(this, "Η αποθήκευση απέτυχε!");
+            }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(ArticleView.this, "!!!Πρόβλημα με τη "
+                    + "βάση δεδομένων!!!");
+        }
+
+    }//GEN-LAST:event_jButtonSaveActionPerformed
+
+    /**
+     * Κλείνει το παράθυρο προβολής άρθρου. Αν έχουν γίνει αλλαγές ανοίγει πα-
+     * πάθυρο και ρωτάει αν ο χρήστης θέλει να αποθυκεύσει.
+     * @param evt Το συμβάν ενέργειας.
+     */
+    private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
+        
+        if (article.equals(ViewToArticle()))
+        {
+            this.dispose();
+        }else
+        {
+            int choice = javax.swing.JOptionPane.showConfirmDialog(
+            this,
+            "Έχετε μη αποθηκευμένες αλλαγές. Θέλετε να τις αποθηκεύσετε;",
+            "Προσοχή",
+            javax.swing.JOptionPane.YES_NO_CANCEL_OPTION
+            );
+
+            if (choice == javax.swing.JOptionPane.YES_OPTION) {
+                jButtonSave.doClick();
+            } else if (choice == javax.swing.JOptionPane.NO_OPTION) {
+                this.dispose();
+            }
+            // Αν πατήσει CANCEL, δεν κάνουμε τίποτα (το παράθυρο μένει ανοιχτό)
+        }        
+    }//GEN-LAST:event_jButtonExitActionPerformed
+
+    /**
+    * Δημιουργεί ένα άρθρο με τα στοιχεία που είναι αποθηκευμένα στην VIEW.
+    * @return Ένα αντικείμενο {@link Article} .
+    */
+    private Article ViewToArticle(){
+        Category cat = (Category) jComboBoxCategory.getSelectedItem();
         int stars;
         if (jRadioButton1.isSelected()) {
             stars = 1;
@@ -371,7 +437,7 @@ public class ArticleView extends javax.swing.JFrame {
         } else {
             stars = 0;
         }
-
+        
         // Δημιουργία προσωρινού αντικειμένου Article με τα νέα δεδομένα
         Article art = new Article(jTextFieldTitle.getText(),
             jTextAreaSnippet.getText(),
@@ -379,48 +445,19 @@ public class ArticleView extends javax.swing.JFrame {
             jTextAreaComment.getText(),
             cat,
             stars);
-        
-        // Έλεγχος αν το άρθρο υπάρχει ήδη στη βάση (βάσει τίτλου)
-        Article a = dbHandling.getArticleByTitle(art.getTitle());
-
-        try {
-            if (a.getTitle() != null) {
-                // Αν υπάρχει, εκτελείται UPDATE
-                if (dbHandling.updateArticle(art)) {
-                    JOptionPane.showMessageDialog(this, "Η ενημέρωση έγινε με "
-                            + "επιτυχία!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Η ενημέρωση απέτυχε!");
-                }
-            // Αν δεν υπάρχει, εκτελείται INSERT
-            }else if (dbHandling.insertArticle(art)) {
-                JOptionPane.showMessageDialog(this, "Η αποθήκευση έγινε με "
-                        + "επιτυχία!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Η αποθήκευση απέτυχε!");
-            }
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(ArticleView.this, "!!!Πρόβλημα με τη "
-                    + "βάση δεδομένων!!!");
-        }
-
-    }//GEN-LAST:event_jButtonSaveActionPerformed
-
+        return art;        
+    }
+    
+    
     /**
-     * Κλείνει το παράθυρο προβολής άρθρου.
-     * @param evt Το συμβάν ενέργειας.
-     */
-    private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButtonExitActionPerformed
-
-    /**
-     * Φορτώνει όλες τις διαθέσιμες κατηγορίες από τη βάση δεδομένων στο ComboBox της φόρμας.
+     * Φορτώνει όλες τις διαθέσιμες κατηγορίες από τη βάση δεδομένων στο
+     * ComboBox της φόρμας.
      * @throws SQLException Σε περίπτωση σφάλματος κατά την ανάκτηση από τη βάση.
      */
     private void loadDataToCompo() throws SQLException {
         List<Category> cat = dbHandling.getAllCategory();
-        DefaultComboBoxModel<Category> model = (DefaultComboBoxModel<Category>) jComboBoxCategory.getModel();
+        DefaultComboBoxModel<Category> model = (DefaultComboBoxModel<Category>)
+                jComboBoxCategory.getModel();
 
         model.removeAllElements(); // Καθαρισμός παλιών
         for (Category a : cat) {

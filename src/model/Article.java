@@ -26,7 +26,7 @@ public class Article
     private String timestamp;
     
     /** Προσωπικά σχόλια του χρήστη για το άρθρο. */
-    private String comment;
+    private String comment = "";
     
     /** Η κατηγορία στην οποία ανήκει το άρθρο. */
     private Category category;
@@ -75,7 +75,8 @@ public class Article
         this.category = category;
         this.stars = stars;
     }
-
+    
+    
     /**
      * Πλήρης κατασκευαστής για τη δημιουργία άρθρου με όλα τα πεδία, 
      * συμπεριλαμβανομένου του ID.
@@ -206,6 +207,31 @@ public class Article
     public void setId(int id) 
     {
         this.id = id;
+    }
+    
+    /**
+     * Συγκρίνει το τρέχον αντικείμενο με ένα άλλο. Η σύγκριση γίνεται με βάση  
+     * όλα τα πεδία. 
+     * @param obj Το αντικείμενο προς σύγκριση.
+     * @return true αν τα αντικείμενα έχουν τα ίδια πεδία, false σε κάθε άλλη περίπτωση.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Article other = (Article) obj;
+        if (other.category == null && this.category != null){
+            return false;
+        }
+        if (this.category == null){
+            return this.title.equals(other.title) && this.comment.equals(other.comment) 
+                    && this.snippet.equals(other.snippet) && this.stars == other.stars;
+        }else{
+            return this.title.equals(other.title) && this.category.equals(other.category)
+                    && this.comment.equals(other.comment) && this.snippet.equals(other.snippet)
+                    && this.stars == other.stars;
+        }
     }
 
     /**

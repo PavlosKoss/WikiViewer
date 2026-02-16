@@ -57,7 +57,7 @@ public class dbHandling {
         catch(SQLException e)
         {
             JOptionPane.showMessageDialog(null, "!!! Πρόβλημα με τo"
-                    + " άνοιγμα της βάσης δεδομένων !!!");
+                    + " άνοιγμα της βάσης δεδομένων !!!" +e);
         }
     }
     
@@ -304,7 +304,8 @@ public class dbHandling {
         String sql = "SELECT p.id, p.title, p.snippet, p.timestamp, "
                 + "p.stars, p.category_id, p.comment, c.cat_name "
                 + "FROM article p LEFT JOIN category c "
-                + "ON p.category_id = c.cat_id ";
+                + "ON p.category_id = c.cat_id "
+                + "ORDER BY p.title";
         try(Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery())
@@ -350,7 +351,8 @@ public class dbHandling {
                 + "p.stars, p.category_id, p.comment, c.cat_name "
                 + "FROM article p LEFT JOIN category c "
                 + "ON p.category_id = c.cat_id "
-                + "WHERE p.category_id =" + category.getCatid();
+                + "WHERE p.category_id =" + category.getCatid() 
+                + "ORDER BY p.title";
         try(Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery())

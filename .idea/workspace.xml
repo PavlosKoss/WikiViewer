@@ -5,44 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73aab158-b360-48fb-9536-c80f6adccb0c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/cf8c7cee-8f0d-41d9-8ed3-f73a7cbb4f32.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/cf8c7cee-8f0d-41d9-8ed3-f73a7cbb4f32.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/derby.log" beforeDir="false" afterPath="$PROJECT_DIR$/derby.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nbproject/project.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/project.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/MainGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MainGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/SavedArticles.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SavedArticles.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/SavedArticles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SavedArticles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/SearchWiki.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SearchWiki.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/SearchWiki.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SearchWiki.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/WIKI.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/WikiViewerLabel.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/WikiViewerLabel.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/wikiviewer/dbHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/wikiviewer/dbHandling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Statistics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Statistics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/GetResults.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/GetResults.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/dbHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/dbHandling.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/db.lck" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/db.lck" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/log/log.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/log/log.ctrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/log/log1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/log/log1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/log/log2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/log/log2.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/log/logmirror.ctrl" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/log/logmirror.ctrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c101.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c101.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c111.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c111.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c121.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c121.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c130.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c130.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c141.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c141.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c20.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c20.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c31.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c31.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/seg0/c400.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c400.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c41.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c41.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c411.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c411.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c421.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c421.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/seg0/c4b0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c4b0.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/seg0/c4c1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c4c1.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/seg0/c4d1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c4d1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c51.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c51.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c500.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c500.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c511.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c511.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/seg0/c60.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c60.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c71.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c71.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikidb/seg0/c81.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c81.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/c90.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/c90.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/ca1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/ca1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/cb1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/cb1.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikidb/seg0/cf0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/wikidb/seg0/cf0.dat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +31,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="182" />
+    <option name="cachedIndexableFilesCount" value="341" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
