@@ -8,15 +8,11 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.Article;
-import model.Article;
-import model.Category;
 import model.Category;
 import model.CategoryStat;
-import model.CategoryStat;
-import model.KeywordStat;
 import model.KeywordStat;
 import model.Statistic;
-import model.Statistic;
+
 
 
 /**
