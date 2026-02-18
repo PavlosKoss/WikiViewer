@@ -211,7 +211,8 @@ public class Article
     
     /**
      * Συγκρίνει το τρέχον αντικείμενο με ένα άλλο. Η σύγκριση γίνεται με βάση  
-     * όλα τα πεδία. 
+     * όλα τα πεδία. Χρησημοποιήτε για να καταλάβουμε αν έγινε κάποια αλλαγή στο
+     * άρθρο στη φόρμα προεπισκόπησης.
      * @param obj Το αντικείμενο προς σύγκριση.
      * @return true αν τα αντικείμενα έχουν τα ίδια πεδία, false σε κάθε άλλη περίπτωση.
      */
@@ -219,8 +220,9 @@ public class Article
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-
         Article other = (Article) obj;
+        // καλύπτουμε τις περιπτώσεις που η κατηγορία είναι null για να αποφή-
+        // γουμε σφάλματα 
         if (other.category == null && this.category != null){
             return false;
         }

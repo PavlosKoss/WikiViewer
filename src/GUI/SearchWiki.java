@@ -5,6 +5,10 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import api.GetResults;
 import db.dbHandling;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.List;
+import javax.swing.SwingWorker;
 
 /**
  * Η κλάση SearchWiki αποτελεί το κεντρικό παράθυρο αναζήτησης της εφαρμογής.
@@ -28,6 +32,8 @@ public class SearchWiki extends javax.swing.JFrame {
         // Ορισμός κενού μοντέλου στη jList2 για τη δυναμική προσθήκη 
         //αντικειμένων Article
         jList2.setModel(new DefaultListModel<>());
+        jProgressBar1.setVisible(false);
+        jProgressBar1.setStringPainted(true);
     }
 
     /**
@@ -47,6 +53,7 @@ public class SearchWiki extends javax.swing.JFrame {
         jButtonOpen = new javax.swing.JButton();
         jButtonExit = new javax.swing.JButton();
         jButtonSave = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Search Wiki");
@@ -104,6 +111,8 @@ public class SearchWiki extends javax.swing.JFrame {
             }
         });
 
+        jProgressBar1.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,17 +121,19 @@ public class SearchWiki extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(115, 115, 115)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonSave)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButtonOpen)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButtonExit)))
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton1))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jButtonSave)
+                            .addGap(35, 35, 35)
+                            .addComponent(jButtonOpen)
+                            .addGap(33, 33, 33)
+                            .addComponent(jButtonExit))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,14 +144,16 @@ public class SearchWiki extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOpen)
                     .addComponent(jButtonExit)
                     .addComponent(jButtonSave))
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addGap(0, 35, Short.MAX_VALUE))
         );
 
         pack();
@@ -148,23 +161,79 @@ public class SearchWiki extends javax.swing.JFrame {
  
     /**
      * Διαχειρίζεται το πάτημα του κουμπιού "Αναζήτηση".
-     * Ανακτά τα άρθρα μέσω του {@link GetResults#getList}, ενημερώνει 
+     * Ελέγχει αν υπάρχει σύνδεση στο Internet και αν ναι 
+     * ανακτά τα άρθρα μέσω του {@link GetResults#getList}, ενημερώνει 
      * τη λίστα στο GUI και αποθηκεύει τη λέξη-κλειδί στη βάση δεδομένων.
      * @param evt Το συμβάν ενέργειας (action event).
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DefaultListModel<Article> model = 
-                (DefaultListModel<Article>) jList2.getModel();
-        // Κλήση του API για τη λήψη αποτελεσμάτων
-        Article[] articles = GetResults.getList(jTextField1.getText());
-
-        model.clear();
-        for (Article a: articles)
+        
+        if (hasInternetConnection()== true)
         {
-            model.addElement(a);
+            
+            String searchText = jTextField1.getText();
+            if (searchText.isEmpty()) 
+            {
+                javax.swing.JOptionPane.showMessageDialog(this, "Παρακαλώ πληκτρολογήστε κάτι!");
+                return;
+            }
+            jProgressBar1.setVisible(true);
+            jProgressBar1.setIndeterminate(true);
+            jProgressBar1.setString("Φόρτωση...");
+            jButton1.setEnabled(false);
+            jButtonOpen.setEnabled(false);
+            jButtonSave.setEnabled(false);
+            
+            SwingWorker<Article[], Void> worker = new SwingWorker<>()
+            {
+                @Override
+                protected  Article[] doInBackground() throws Exception
+                {                   
+                    return GetResults.getList(searchText);
+                }
+                
+                @Override
+                protected void done()
+                {
+                    try
+                    {
+                        Article[] articles = get();
+                        // Ενημερώνουμε τη λίστα
+                        DefaultListModel<Article> model = 
+                          (DefaultListModel<Article>) jList2.getModel();
+                        
+                        model.clear();
+                        for (Article a: articles)
+                        {
+                            model.addElement(a);
+                        }
+                         
+                    }catch (Exception e)
+                    {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Σφάλμα "
+                            + "κατά την αναζήτηση.");
+                    }finally
+                    {
+                        jProgressBar1.setIndeterminate(false);
+                        jProgressBar1.setVisible(false);
+                        jButton1.setEnabled(true);
+                        jButtonOpen.setEnabled(true);
+                        jButtonSave.setEnabled(true);
+                    }
+                }
+                    
+            };
+            worker.execute();
+        }else
+        {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+            "Δεν υπάρχει σύνδεση στο Διαδίκτυο!\nΕλέγξτε το δίκτυό σας και προσπαθήστε ξανά.", 
+            "Σφάλμα Σύνδεσης", 
+            javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-        // Καταγραφή της αναζήτησης στη βάση δεδομένων
-        dbHandling.insertKeyword(jTextField1.getText());
+        
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -197,11 +266,12 @@ public class SearchWiki extends javax.swing.JFrame {
      * @param evt Το συμβάν ενέργειας.
      */
     private void jButtonOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenActionPerformed
-        Article selectedArticle = (Article) jList2.getSelectedValue();
-        // Έλεγχος αν το άρθρο είναι ήδη αποθηκευμένο στη βάση
-        Article art = dbHandling.getArticleByTitle(selectedArticle.getTitle());
-        if(selectedArticle != null)
-        {            
+        if (jList2.getSelectedValue() != null)
+        {
+            Article selectedArticle = (Article) jList2.getSelectedValue();
+            // Έλεγχος αν το άρθρο είναι ήδη αποθηκευμένο στη βάση
+            Article art = dbHandling.getArticleByTitle(selectedArticle.getTitle());
+                        
             if(art.getTitle()!= null)
             {
                 // Αν υπάρχει στη βάση, ανοίγουμε το παράθυρο με τα 
@@ -213,7 +283,9 @@ public class SearchWiki extends javax.swing.JFrame {
                 // Αν δεν υπάρχει, ανοίγουμε το παράθυρο με τα δεδομένα από το API
                 openWindow(new ArticleView(selectedArticle));
             }           
+             
         }
+        
     }//GEN-LAST:event_jButtonOpenActionPerformed
 
     /**
@@ -273,6 +345,7 @@ public class SearchWiki extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<Article> jList2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
@@ -286,6 +359,26 @@ public class SearchWiki extends javax.swing.JFrame {
     {
         w.setLocationRelativeTo(this);
         w.setVisible(true);
+    }
+    
+    /**
+    * Βοηθητική μέθοδος για τον έλεγχο της σύνδεσης στο Intenet.
+    * @return true αν υπάρχει δύνδεση, false άν όχι.
+    */
+    private boolean hasInternetConnection()
+    {
+        try 
+        {
+            URL url = new URL("http://www.google.com");
+            URLConnection connection = url.openConnection();
+            
+            connection.setConnectTimeout(3000);
+            connection.connect();
+            
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

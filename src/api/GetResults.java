@@ -89,9 +89,9 @@ public class GetResults
         // Εμπλουτισμός κάθε άρθρου με καθαρό περιεχόμενο και σωστή μορφή ημερομηνίας
         for (Article a : articles)
         {
-            a.setTitle(a.getTitle()); // Triggering Jsoup cleaning through setter
-            a.setSnippet(setProperSnippet(a.getTitle())); // Ανάκτηση καθαρού κειμένου
-            a.setTimestamp(a.getTimestamp()); // Μετατροπή ISO timestamp σε αναγνώσιμη μορφή
+            a.setTitle(a.getTitle()); 
+            a.setSnippet(setProperSnippet(a.getTitle())); 
+            a.setTimestamp(a.getTimestamp()); 
         }
         
         return articles;
