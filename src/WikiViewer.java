@@ -25,10 +25,5 @@ public class WikiViewer
         
         // Εμφάνιση του παραθύρου στην οθόνη
         a.setVisible(true);
-    }
-
-    
-    
-        
-        
+    }        
 }

@@ -1,13 +1,13 @@
 package GUI;
-import model.Article;
 
+
+import model.Article;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import api.GetResults;
 import db.dbHandling;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.List;
 import javax.swing.SwingWorker;
 
 /**
